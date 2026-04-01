@@ -1,8 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from './prisma/prisma.service';
+import { UserModel } from 'generated/prisma/models';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  constructor(readonly prismaService: PrismaService) { }
+
+  async getHello(): Promise<UserModel[]> {
+    const users = await this.prismaService.client.user.findMany()
+    return users
   }
 }
