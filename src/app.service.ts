@@ -7,7 +7,7 @@ export class AppService {
   constructor(readonly prismaService: PrismaService) { }
 
   async getHello(): Promise<UserModel[]> {
-    const users = await this.prismaService.client.user.findMany()
+    const users = await this.prismaService.user.findMany()
     return users
   }
 }
