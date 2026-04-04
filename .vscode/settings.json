@@ -1,5 +1,14 @@
 {
-    
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always",
+    "source.organizeImports": "always",
+    "source.removeUnusedImports": "always"
+  },
+  "material-icon-theme.activeIconPack": "nest",
+
+  "material-icon-theme.files.associations": {
+    "*.env*": "env"
+  }
 }
