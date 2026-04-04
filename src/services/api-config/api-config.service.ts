@@ -17,4 +17,12 @@ export class ApiConfigService {
     return this.configService.get<string>('DATABASE_URL')!;
   }
 
+  get jwtPublicRsaKey(): string {
+    return this.configService.get<string>('JWT_PUBLIC_RSA_KEY')!;
+  }
+
+  get jwtSecretRsaKey(): string {
+    return this.configService.get<string>('JWT_SECRET_RSA_KEY')!;
+  }
+
 }

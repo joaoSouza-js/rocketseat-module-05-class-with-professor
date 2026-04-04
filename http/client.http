@@ -4,6 +4,17 @@ content-type: application/json
 
 {
     "name": "sample",
-    "email": "joedoe@gmail.com",
+    "email": "joe@gmail.com",
     "password": "123456"
 }
+
+###
+POST {{baseUrl}}/sessions HTTP/1.1
+content-type: application/json
+
+{
+
+    "email": "joe@gmail.com",
+    "password": "123456"
+}
+
