@@ -9,8 +9,9 @@ import { HasherService } from 'src/services/hasher/hasher.service';
     imports: [PassportModule, JwtModule.registerAsync({
         inject: [ApiConfigService],
         useFactory: (config: ApiConfigService) => {
-            const jwtSecretPrivateRsaKey = Buffer.from(config.jwtPublicRsaKey, 'base64')
-            const jwtSecretPublicRsaKey = Buffer.from(config.jwtSecretRsaKey, 'base64')
+            const jwtSecretPrivateRsaKey = Buffer.from(config.jwtSecretRsaKey, 'base64')
+            const jwtSecretPublicRsaKey = Buffer.from(config.jwtPublicRsaKey, 'base64')
+
             return {
                 privateKey: jwtSecretPrivateRsaKey,
                 publicKey: jwtSecretPublicRsaKey,

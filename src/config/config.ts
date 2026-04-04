@@ -23,11 +23,11 @@ class EnvironmentVariables {
     DATABASE_URL!: string
 
     @IsString()
-    JWT_SECRET_RSA_KEY!: string
+    JWT_PRIVATE_KEY!: string
 
 
     @IsString()
-    JWT_PUBLIC_RSA_KEY!: string
+    JWT_PUBLIC_KEY!: string
 
 }
 

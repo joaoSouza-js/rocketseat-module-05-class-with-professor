@@ -18,11 +18,11 @@ export class ApiConfigService {
   }
 
   get jwtPublicRsaKey(): string {
-    return this.configService.get<string>('JWT_PUBLIC_RSA_KEY')!;
+    return this.configService.get<string>('JWT_PUBLIC_KEY')!;
   }
 
   get jwtSecretRsaKey(): string {
-    return this.configService.get<string>('JWT_SECRET_RSA_KEY')!;
+    return this.configService.get<string>('JWT_PRIVATE_KEY')!;
   }
 
 }
