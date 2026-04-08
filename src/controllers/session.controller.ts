@@ -43,7 +43,7 @@ export class SessionController {
             sub: findUser.id
         })
         return {
-            token
+            access_token: token
         }
     }
 }

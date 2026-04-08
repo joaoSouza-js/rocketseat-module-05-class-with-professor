@@ -4,6 +4,7 @@ import { PassportModule } from '@nestjs/passport';
 import { SessionController } from 'src/controllers/session.controller';
 import { ApiConfigService } from 'src/services/api-config/api-config.service';
 import { HasherService } from 'src/services/hasher/hasher.service';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
     imports: [PassportModule, JwtModule.registerAsync({
@@ -24,7 +25,7 @@ import { HasherService } from 'src/services/hasher/hasher.service';
         }
     })],
     controllers: [SessionController],
-    providers: [HasherService],
+    providers: [HasherService, JwtStrategy],
 
 })
 export class AuthModule { }

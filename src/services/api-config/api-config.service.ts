@@ -9,9 +9,7 @@ export class ApiConfigService {
     return this.configService.get<number>('PORT')!;
   }
 
-  get jwtSecretKey(): string {
-    return this.configService.get<string>('JWT_SECRET_KEY')!;
-  }
+
 
   get databaseUrl(): string {
     return this.configService.get<string>('DATABASE_URL')!;
