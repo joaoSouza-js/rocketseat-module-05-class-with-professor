@@ -23,4 +23,8 @@ export class ApiConfigService {
     return this.configService.get<string>('JWT_PRIVATE_KEY')!;
   }
 
+  get schemaId(): string {
+    return this.configService.get<string>('SCHEMA_ID')!;
+  }
+
 }

@@ -1,6 +1,7 @@
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient } from 'generated/prisma/client';
+
+import { PrismaClient } from 'src/generated/prisma/client';
 import { ApiConfigService } from '../api-config/api-config.service';
 
 
@@ -9,7 +10,11 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
 
     constructor(apiConfigService: ApiConfigService) {
         const adapter = new PrismaPg({
-            connectionString: apiConfigService.databaseUrl
+            connectionString: apiConfigService.databaseUrl,
+
+
+        }, {
+            schema: apiConfigService.schemaId
         })
         super({
             adapter,
