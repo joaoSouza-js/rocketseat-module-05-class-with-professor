@@ -1,35 +1,74 @@
-// @ts-check
-import eslint from '@eslint/js';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import js from "@eslint/js";
+import tseslint from "typescript-eslint";
+import importPlugin from "eslint-plugin-import";
+import { defineConfig } from "eslint/config";
 
-export default tseslint.config(
+export default defineConfig([
   {
-    ignores: ['eslint.config.mjs',"dist","node_modules"],
+    ignores: ["dist", "node_modules", "coverage", "generated"],
   },
-  eslint.configs.recommended,
+
+  // Base JS recommended
+  js.configs.recommended,
+
+  // TypeScript recommended (with type-checking)
   ...tseslint.configs.recommendedTypeChecked,
-  eslintPluginPrettierRecommended,
+
   {
+    files: ["**/*.ts"],
     languageOptions: {
-      globals: {
-        ...globals.node,
-        ...globals.jest,
-      },
-      sourceType: 'commonjs',
       parserOptions: {
-        projectService: true,
+        project: ["./tsconfig.json"],
         tsconfigRootDir: import.meta.dirname,
       },
     },
-  },
-  {
+    plugins: {
+      import: importPlugin,
+    },
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn',
-      "prettier/prettier": ["error", { endOfLine: "auto" }],
+      /* ========================
+         TYPESCRIPT STRICTNESS
+      ======================== */
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-floating-promises": "error",
+      "@typescript-eslint/no-misused-promises": "error",
+      "@typescript-eslint/await-thenable": "error",
+      "@typescript-eslint/consistent-type-imports": "error",
+
+      /* ========================
+         CODE QUALITY
+      ======================== */
+      "no-console": "warn",
+      "no-debugger": "error",
+      "no-duplicate-imports": "error",
+
+      /* ========================
+         IMPORT ORGANIZATION
+      ======================== */
+      "import/order": [
+        "error",
+        {
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            ["parent", "sibling", "index"],
+          ],
+          "newlines-between": "always",
+        },
+      ],
+
+      /* ========================
+         NESTJS FRIENDLY
+      ======================== */
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+
+      /* ========================
+         LIGHT FORMATTING (NO PRETTIER)
+      ======================== */
+      quotes: ["error", "single"],
+      semi: ["error", "always"],
     },
   },
-);
+]);

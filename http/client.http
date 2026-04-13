@@ -1,0 +1,39 @@
+@baseUrl = http://localhost:3333
+@authToken = {{authenticate.response.body.access_token}}
+# @name accounts
+POST {{baseUrl}}/accounts HTTP/1.1
+content-type: application/json
+
+{
+    "name": "sample",
+    "email": "joe@gmail.com",
+    "password": "123456"
+}
+
+###
+# @name authenticate
+POST {{baseUrl}}/sessions HTTP/1.1
+content-type: application/json
+
+{
+
+    "email": "joe@gmail.com",
+    "password": "123456"
+}
+
+###
+# @name question
+POST {{baseUrl}}/questions HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+
+    "title": "joe@gmail.com",
+    "content": "123456"
+}
+
+### @name fetchQuestion
+GET {{baseUrl}}/questions?page=4&limit=4 HTTP/1.1
+Authorization: Bearer {{authToken}}
+
