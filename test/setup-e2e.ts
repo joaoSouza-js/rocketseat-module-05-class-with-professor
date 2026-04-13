@@ -7,6 +7,7 @@ import { PrismaClient } from "../src/generated/prisma/client"
 
 
 function generateUniqueDataBaseUrl(schemaId: string) {
+
     const databaseUrl = process.env.DATABASE_URL
 
     if (!databaseUrl) {
@@ -26,6 +27,8 @@ beforeAll(async () => {
     const databaseUrl = generateUniqueDataBaseUrl(schemaId)
     process.env.DATABASE_URL = databaseUrl
     process.env.SCHEMA_ID = schemaId
+
+    console.log('SCHEMA_ID', schemaId)
 
 
     const adapter = new PrismaPg({

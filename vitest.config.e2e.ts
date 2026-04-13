@@ -1,10 +1,15 @@
 
 import { resolve } from 'path';
 import swc from 'unplugin-swc';
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
+    resolve: {
+        tsconfigPaths: true,
+    },
+    oxc: false,
     test: {
+
         include: ['**/*.e2e-spec.ts'],
         globals: true,
         alias: {

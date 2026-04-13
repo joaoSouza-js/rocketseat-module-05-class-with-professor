@@ -9,6 +9,11 @@ import { ApiConfigService } from '../api-config/api-config.service';
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
 
     constructor(apiConfigService: ApiConfigService) {
+
+        console.log(apiConfigService.databaseUrl)
+        console.log(apiConfigService.schemaId)
+
+
         const adapter = new PrismaPg({
             connectionString: apiConfigService.databaseUrl,
 

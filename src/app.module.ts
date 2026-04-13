@@ -16,7 +16,11 @@ import { HasherService } from './services/hasher/hasher.service';
   imports: [
     ConfigModule.forRoot({
       validate: validate,
-      isGlobal: true
+      isGlobal: true,
+      ignoreEnvFile: true,
+      load: [],
+      cache: false,
+      skipProcessEnv: true
     }),
     PrismaModule,
     ApiConfigModule,
