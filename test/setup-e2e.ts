@@ -28,9 +28,6 @@ beforeAll(async () => {
     process.env.DATABASE_URL = databaseUrl
     process.env.SCHEMA_ID = schemaId
 
-    console.log('SCHEMA_ID', schemaId)
-
-
     const adapter = new PrismaPg({
         connectionString: databaseUrl
     })
@@ -41,7 +38,7 @@ beforeAll(async () => {
 
     execSync('npx prisma migrate deploy')
 
-})
+}, 60 * 1000)
 
 afterAll(async () => {
     await prismaClient.$queryRawUnsafe(`DROP SCHEMA IF EXISTS "${process.env.SCHEMA_ID}" CASCADE`)

@@ -10,8 +10,6 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
 
     constructor(apiConfigService: ApiConfigService) {
 
-        console.log(apiConfigService.databaseUrl)
-        console.log(apiConfigService.schemaId)
 
 
         const adapter = new PrismaPg({

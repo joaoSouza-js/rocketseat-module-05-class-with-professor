@@ -24,7 +24,7 @@ export class ApiConfigService {
   }
 
   get schemaId(): string {
-    return this.configService.get<string>('SCHEMA_ID')!;
+    return process.env.SCHEMA_ID!
   }
 
 }
