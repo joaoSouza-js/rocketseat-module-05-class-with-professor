@@ -1,30 +1,39 @@
 import { AppModule } from '@/app.module';
+import { HasherService } from '@/services/hasher/hasher.service';
+import { PrismaService } from '@/services/prisma/prisma.service';
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
-import { createUserTestRequest } from 'test/crate-user-test-request';
+import { createPrismaUser } from 'test/create-prisma-user';
 
 describe('Create account controller (e2e)', () => {
 
     let app: INestApplication;
-
+    let prismaService: PrismaService
+    let hashService: HasherService
     beforeAll(async () => {
         const moduleRef = await Test.createTestingModule({
             imports: [AppModule],
         }).compile();
 
         app = moduleRef.createNestApplication();
-
+        prismaService = app.get(PrismaService)
+        hashService = app.get(HasherService)
         await app.init();
     });
 
     test('[POST] /accounts', async () => {
         const agent = request(app.getHttpServer())
-        const userRequest = await createUserTestRequest(agent)
+
+        const user = await createPrismaUser({
+            prismaService,
+            hashService,
+
+        })
 
         const response = await agent.post("/sessions").send({
-            email: userRequest.email,
-            password: userRequest.password
+            email: user.email,
+            password: user.password
         })
 
 

@@ -34,7 +34,7 @@ export class CreateQuestionController {
 
 
 
-        await this.prismaService.question.create({
+        const question = await this.prismaService.question.create({
             data: {
                 content: body.content,
                 title: body.title,
@@ -42,5 +42,9 @@ export class CreateQuestionController {
                 authorId: user.sub
             }
         })
+
+        return {
+            slug: question.slug
+        }
     }
 }

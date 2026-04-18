@@ -1,5 +1,5 @@
 import { Controller, Get, Query } from "@nestjs/common";
-import { Transform, Type } from "class-transformer";
+import { Type } from "class-transformer";
 import { IsNumber, IsOptional, Min } from "class-validator";
 import { PrismaService } from "src/services/prisma/prisma.service";
 
@@ -8,17 +8,15 @@ import { PrismaService } from "src/services/prisma/prisma.service";
 export class PaginationQueryParams {
     @IsOptional()
     @Type(() => Number)
-    @Transform(({ value }) => Number(value ?? 1))
     @IsNumber()
     @Min(1)
-    page!: number
+    page: number = 1
 
     @IsOptional()
     @Type(() => Number)
-    @Min(1)
-    @Transform(({ value }) => Number(value ?? 10))
     @IsNumber()
-    limit!: number
+    @Min(1)
+    limit: number = 10
 }
 
 
