@@ -1,7 +1,7 @@
 
 import { resolve } from 'path';
 import swc from 'unplugin-swc';
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
     resolve: {

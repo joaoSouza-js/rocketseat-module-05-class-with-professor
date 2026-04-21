@@ -1,17 +1,12 @@
-
-import { resolve } from 'path';
 import swc from 'unplugin-swc';
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from "vite";
 
 export default defineConfig({
-    oxc: false,
+    resolve: {
+        tsconfigPaths: true,
+
+    },
     test: {
-        globals: true,
-        alias: {
-            '@src': './src',
-            '@test': './test',
-            'src': resolve(__dirname, './src'),
-        },
         exclude: [
             'node_modules',
             'dist',
@@ -20,19 +15,10 @@ export default defineConfig({
             'e2e/**',        // 👈 ignore this folder
             'src/legacy/**', // 👈 example
         ],
-        root: './',
     },
-    plugins: [
-        // This is required to build the test files with SWC
-        swc.vite({
-            // Explicitly set the module type to avoid inheriting this value from a `.swcrc` config file
-            module: { type: 'es6' },
-        }),
-    ],
-    resolve: {
-        alias: {
-            // Ensure Vitest correctly resolves TypeScript path aliases
-            'src': "./src",
-        },
-    },
+    oxc: false,
+
+
+
+    plugins: [swc.vite()],
 });

@@ -1,6 +1,6 @@
-import { AppModule } from '@/app.module';
 import { HasherService } from '@/services/hasher/hasher.service';
 import { PrismaService } from '@/services/prisma/prisma.service';
+import { AppModule } from '@/utils/app.module';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';

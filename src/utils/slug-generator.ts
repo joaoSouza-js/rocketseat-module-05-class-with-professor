@@ -1,4 +1,4 @@
-import { NanoIdeGenerator } from "./nano-id-generator";
+import { NanoIdeGenerator } from "../nano-id-generator";
 
 export class Slug {
     static generate(text: string): string {
