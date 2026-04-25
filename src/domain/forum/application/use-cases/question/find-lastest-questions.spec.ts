@@ -1,7 +1,7 @@
+import { QuestionRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/question-repository";
 import { afterEach } from "node:test";
 import { makeQuestion } from "test/factories/make-question";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { QuestionRepositoryInMemory } from "@/infra/repositories/in-memory-repositories/question-repository";
 import type { QuestionRepository } from "../../repositories/question-repository";
 import { FindLatestQuestionUseCase } from "./find-lastest-questions";
 

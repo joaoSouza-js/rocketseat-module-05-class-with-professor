@@ -1,9 +1,9 @@
 
+import { ApiConfigService } from '@/services/api-config/api-config.service';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { PrismaExceptionFilter } from './common/filters/prisma-exception-filter';
-import { ApiConfigService } from './services/api-config/api-config.service';
+import { PrismaExceptionFilter } from './http/filters/prisma-exception-filter';
 
 
 async function bootstrap() {

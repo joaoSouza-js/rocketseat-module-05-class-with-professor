@@ -1,7 +1,7 @@
+import { NotificationRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/notification-repository";
+import { makeNotification } from "test/factories/make-notification";
 import { beforeEach, describe, expect, it } from "vitest";
 import { ReadNotificationUseCase } from "./read-notification";
-import { NotificationRepositoryInMemory } from "@/infra/repositories/in-memory-repositories/notification-repository";
-import { makeNotification } from "test/factories/make-notification";
 
 describe("read notification use case", () => {
     let sut: ReadNotificationUseCase

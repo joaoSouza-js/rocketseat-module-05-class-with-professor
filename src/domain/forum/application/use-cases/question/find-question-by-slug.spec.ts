@@ -1,6 +1,6 @@
+import { QuestionRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/question-repository";
 import { makeQuestion } from "test/factories/make-question";
 import { beforeEach, describe, expect, it } from "vitest";
-import { QuestionRepositoryInMemory } from "@/infra/repositories/in-memory-repositories/question-repository";
 import { SlugValueObject } from "../../../enterprise/value-object/slug-value-object";
 import type { QuestionRepository } from "../../repositories/question-repository";
 import { FindQuestionBySlugUseCase } from "./find-question-by-slug";

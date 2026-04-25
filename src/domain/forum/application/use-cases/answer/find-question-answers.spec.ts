@@ -1,8 +1,8 @@
+import { AnswerRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/answer-repository";
+import { QuestionRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/question-repository";
 import { makeAnswer } from "test/factories/make-answer";
 import { makeQuestion } from "test/factories/make-question";
 import { beforeEach, describe, expect, it } from "vitest";
-import { AnswerRepositoryInMemory } from "@/infra/repositories/in-memory-repositories/answer-repository";
-import { QuestionRepositoryInMemory } from "@/infra/repositories/in-memory-repositories/question-repository";
 import type { AnswerRepository } from "../../repositories/answer-repository";
 import type { QuestionRepository } from "../../repositories/question-repository";
 import { FindQuestionAnswersUseCase } from "./find-question-answers";

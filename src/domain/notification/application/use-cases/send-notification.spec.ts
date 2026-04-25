@@ -1,6 +1,6 @@
+import { NotificationRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/notification-repository";
 import { beforeEach, describe, expect, it } from "vitest";
 import { SendNotificationUseCase } from "./send-notification";
-import { NotificationRepositoryInMemory } from "@/infra/repositories/in-memory-repositories/notification-repository";
 
 describe("send notification use case", () => {
     let sut: SendNotificationUseCase

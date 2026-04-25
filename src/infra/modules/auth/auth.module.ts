@@ -1,7 +1,7 @@
+import { SessionController } from '@/infra/http/controllers/session.controller';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { SessionController } from 'src/controllers/session.controller';
 import { ApiConfigService } from 'src/services/api-config/api-config.service';
 import { HasherService } from 'src/services/hasher/hasher.service';
 import { JwtStrategy } from './jwt.strategy';

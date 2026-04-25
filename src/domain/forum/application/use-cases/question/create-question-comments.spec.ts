@@ -1,7 +1,7 @@
+import { QuestionCommentRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/question-comment-repository";
+import { QuestionRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/question-repository";
 import { makeQuestion } from "test/factories/make-question";
 import { beforeEach, describe, expect, it } from "vitest";
-import { QuestionCommentRepositoryInMemory } from "@/infra/repositories/in-memory-repositories/question-comment-repository";
-import { QuestionRepositoryInMemory } from "@/infra/repositories/in-memory-repositories/question-repository";
 import type { QuestionCommentRepository } from "../../repositories/question-comment-repository";
 import { CreateQuestionCommentUseCase } from "./create-question-comments";
 

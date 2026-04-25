@@ -1,8 +1,8 @@
+import { CurrentUser } from '@/infra/modules/auth/current-use-decorator';
+import type { UserJwtPayload } from '@/infra/modules/auth/jwt.strategy';
 import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
 import { IsString, MaxLength } from 'class-validator';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
-import { CurrentUser } from 'src/modules/auth/auth/current-use-decorator';
-import type { UserJwtPayload } from 'src/modules/auth/auth/jwt.strategy';
 import { HasherService } from 'src/services/hasher/hasher.service';
 import { PrismaService } from 'src/services/prisma/prisma.service';
 import { Slug } from 'src/utils/slug-generator';

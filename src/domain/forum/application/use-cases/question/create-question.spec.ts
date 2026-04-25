@@ -1,5 +1,5 @@
+import { QuestionRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/question-repository";
 import { beforeEach, describe, expect, it } from "vitest";
-import { QuestionRepositoryInMemory } from "@/infra/repositories/in-memory-repositories/question-repository";
 import type { QuestionRepository } from "../../repositories/question-repository";
 import { CreateQuestionUseCase } from "./create-question";
 

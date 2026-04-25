@@ -1,6 +1,6 @@
+import { AnswerRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/answer-repository";
 import { makeAnswer } from "test/factories/make-answer";
 import { beforeEach, describe, expect, it } from "vitest";
-import { AnswerRepositoryInMemory } from "@/infra/repositories/in-memory-repositories/answer-repository";
 import { ResourceNotFoundError } from "../../../../../core/error/resource-not-found-error";
 import type { AnswerRepository } from "../../repositories/answer-repository";
 import { DeleteAnswerUseCase } from "./delete-answer-use-case";

@@ -1,11 +1,11 @@
 
+import { UniqueEntityId } from "@/core/entities/unique-entity-id";
+import { QuestionAttachmentRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/question-attachment-repository";
+import { QuestionRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/question-repository";
 import { makeQuestion } from "test/factories/make-question";
 import { beforeEach, describe, expect, it } from "vitest";
-import { UniqueEntityId } from "@/core/entities/unique-entity-id";
-import { QuestionRepositoryInMemory } from "@/infra/repositories/in-memory-repositories/question-repository";
 import type { QuestionRepository } from "../../repositories/question-repository";
 import { UpdateQuestionUseCase } from "./update-question";
-import { QuestionAttachmentRepositoryInMemory } from "@/infra/repositories/in-memory-repositories/question-attachment-repository";
 
 describe("update question use case", () => {
     let sut: UpdateQuestionUseCase;

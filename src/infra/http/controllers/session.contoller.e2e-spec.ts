@@ -1,6 +1,6 @@
+import { AppModule } from '@/infra/app.module';
 import { HasherService } from '@/services/hasher/hasher.service';
 import { PrismaService } from '@/services/prisma/prisma.service';
-import { AppModule } from '@/utils/app.module';
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';

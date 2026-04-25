@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it } from "vitest";
 import type { AnswerRepository } from "@/domain/forum/application/repositories/answer-repository";
-import { AnswerRepositoryInMemory } from "@/infra/repositories/in-memory-repositories/answer-repository";
+import { AnswerRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/answer-repository";
+import { beforeEach, describe, expect, it } from "vitest";
 import { AnswerQuestionUseCase } from "./answer-question-use-case";
 
 describe(" answer question use case", () => {
