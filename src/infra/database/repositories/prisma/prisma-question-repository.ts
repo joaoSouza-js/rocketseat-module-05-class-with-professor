@@ -32,29 +32,31 @@ export class PrismaQuestionRepository implements QuestionRepository {
     }
 
 
-    findLatest(props: PaginationParams): Promise<Question[]> {
+    async findLatest(props: PaginationParams): Promise<Question[]> {
         const { limit = 10, page = 1 } = props;
 
-        const questionSortedByLastDate = this.questions.sort((a, b) => {
-            return b.createdAt.getTime() - a.createdAt.getTime();
+        const questions = await this.prismaService.question.findMany({
+            orderBy: {
+                createdAt: "desc",
+            },
+            take: limit,
+            skip: (page - 1) * limit,
         });
 
-        const questions = questionSortedByLastDate.slice(
-            (page - 1) * limit,
-            page * limit,
-        );
-        return Promise.resolve(questions);
+        const questionsMapped = questions.map(PrismaQuestionMapper.toDomain)
+        return questionsMapped
+
+
     }
 
-    update(question: Question): Promise<void> {
-        this.questions = this.questions.map((currentQuestion) => {
-            if (currentQuestion.id.equals(question.id)) {
-                return question;
-            }
-            return question;
-        });
-
-        return Promise.resolve();
+    async update(question: Question): Promise<void> {
+        const questionMapped = PrismaQuestionMapper.toUpdatePersistence(question)
+        await this.prismaService.question.update({
+            where: {
+                id: question.id.toString()
+            },
+            data: questionMapped,
+        })
     }
     async findById(questionId: UniqueEntityId): Promise<Question | null> {
         const questionFounded = await this.prismaService.question.findUnique({
@@ -73,30 +75,35 @@ export class PrismaQuestionRepository implements QuestionRepository {
 
 
     }
-    delete(questionId: UniqueEntityId): Promise<null> {
-        this.questions = this.questions.filter(
-            (question) => !question.id.equals(questionId),
-        );
-
-        if (this.questionAttachmentsRepository) {
-
-            this.questionAttachmentsRepository.deleteManyByQuestionId(questionId)
-        }
-
-        return Promise.resolve(null);
+    async delete(questionId: UniqueEntityId): Promise<null> {
+        await this.prismaService.question.delete({
+            where: {
+                id: questionId.toString()
+            }
+        })
+        return null
     }
 
-    private questions: Question[] = [];
 
-    save(question: Question): Promise<Question> {
-        this.questions.push(question);
-        return Promise.resolve(question);
+    async save(question: Question): Promise<Question> {
+        const questionToPersist = PrismaQuestionMapper.toPersistence(question)
+        await this.prismaService.question.create({
+            data: questionToPersist
+        })
+
+        return question
     }
 
-    findBySlug(slug: SlugValueObject): Promise<Question | null> {
-        const question = this.questions.find((question) =>
-            question.slug.equals(slug),
-        );
-        return Promise.resolve(question || null);
+    async findBySlug(slug: SlugValueObject): Promise<Question | null> {
+        const questionFoundedBySlug = await this.prismaService.question.findUnique({
+            where: {
+                slug: slug.value
+            }
+        })
+
+        if (questionFoundedBySlug === null) return null
+        const question = PrismaQuestionMapper.toDomain(questionFoundedBySlug)
+
+        return question
     }
 }

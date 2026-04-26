@@ -8,7 +8,7 @@ export interface QuestionProps {
     title: string;
     content: string;
     authorId: UniqueEntityId;
-    bestAnswerId?: UniqueEntityId;
+    bestAnswerId?: UniqueEntityId | null;
     attachments: QuestionAttachmentList;
     createdAt: Date;
     updatedAt?: Date;
@@ -48,43 +48,47 @@ export class Question extends AggregateRoot<QuestionProps> {
         this.props.updatedAt = new Date();
     }
 
-    get title() {
+    get title(): string {
         return this.props.title;
     }
 
-    get slug() {
+    get slug(): SlugValueObject {
         return this.props.slug;
     }
 
-    get content() {
+    get content(): string {
         return this.props.content;
     }
 
-    get authorId() {
+    get authorId(): UniqueEntityId {
         return this.props.authorId;
     }
 
-    get createdAt() {
+    get createdAt(): Date {
         return this.props.createdAt;
     }
 
-    get isNew() {
+    get isNew(): boolean {
         const threeDaysAgo = new Date();
         threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
         return this.props.createdAt > threeDaysAgo;
     }
 
-    get excerpt() {
+    get excerpt(): string {
         if (!this.content) return '';
         return this.content.substring(0, 120).trimEnd().concat("...");
     }
 
-    get bestAnswerId(): UniqueEntityId | undefined {
+    get bestAnswerId(): UniqueEntityId | undefined | null {
         return this.props.bestAnswerId;
     }
 
-    get attachments() {
+    get attachments(): QuestionAttachmentList {
         return this.props.attachments;
+    }
+
+    get updatedAt(): Date | undefined {
+        return this.props.updatedAt
     }
 
 
