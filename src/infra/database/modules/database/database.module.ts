@@ -18,7 +18,7 @@ import { PrismaModule } from '../prisma/prisma.module';
         PrismaAnswerCommentRepository,
         PrismaAnswerRepository,
         PrismaNotificationRepository,
-        PrismaQuestionAttachmentRepository,
+
         PrismaQuestionAttachmentRepository,
         PrismaQuestionCommentRepository,
         PrismaQuestionRepository
@@ -28,7 +28,6 @@ import { PrismaModule } from '../prisma/prisma.module';
         PrismaAnswerCommentRepository,
         PrismaAnswerRepository,
         PrismaNotificationRepository,
-        PrismaQuestionAttachmentRepository,
         PrismaQuestionAttachmentRepository,
         PrismaQuestionCommentRepository,
         PrismaQuestionRepository

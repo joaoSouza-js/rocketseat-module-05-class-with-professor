@@ -8,6 +8,11 @@ export interface DeleteQuestion {
     questionId: UniqueEntityId;
 }
 
+export interface FindLatestQuestions {
+    questions: Question[],
+    count: number
+}
+
 
 
 export interface QuestionRepository {
@@ -16,5 +21,5 @@ export interface QuestionRepository {
     findById(questionId: UniqueEntityId): Promise<Question | null>;
     delete(questionId: UniqueEntityId): Promise<null>;
     update(question: Question): Promise<void>;
-    findLatest(props: PaginationParams): Promise<Question[]>;
+    findLatest(props: PaginationParams): Promise<FindLatestQuestions>;
 }

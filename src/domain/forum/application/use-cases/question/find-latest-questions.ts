@@ -16,6 +16,7 @@ interface FindLatestQuestionUseCaseRequest {
 
 interface FindLatestQuestionUseCaseResponse {
     questions: Question[];
+    count: number
 }
 export class FindLatestQuestionUseCase {
     questionRepository: QuestionRepository;
@@ -27,13 +28,14 @@ export class FindLatestQuestionUseCase {
     async execute(
         input: FindLatestQuestionUseCaseRequest,
     ): Promise<FindLatestQuestionUseCaseResponse> {
-        const questions = await this.questionRepository.findLatest({
+        const response = await this.questionRepository.findLatest({
             limit: input.limit,
             page: input.page,
         });
 
         return {
-            questions: questions,
+            questions: response.questions,
+            count: response.count
         };
     }
 }

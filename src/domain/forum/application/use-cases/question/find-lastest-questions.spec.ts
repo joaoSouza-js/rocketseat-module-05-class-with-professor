@@ -3,7 +3,7 @@ import { afterEach } from "node:test";
 import { makeQuestion } from "test/factories/make-question";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { QuestionRepository } from "../../repositories/question-repository";
-import { FindLatestQuestionUseCase } from "./find-lastest-questions";
+import { FindLatestQuestionUseCase } from "./find-latest-questions";
 
 describe("find last questions use case", () => {
     let sut: FindLatestQuestionUseCase;

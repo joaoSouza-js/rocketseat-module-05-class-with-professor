@@ -1,46 +1,40 @@
-import { describe, expect, it } from "vitest";
+import { Slug } from "@/core/slug-generator";
+import { describe, expect, it, vi } from "vitest";
 import { SlugValueObject } from "./slug-value-object";
 
-
 describe("SlugValueObject", () => {
-    it("should normalize a simple string to lowercase and replace spaces with hyphens", () => {
-        const slug = SlugValueObject.create("Hello World");
-        expect(slug.value).toBe("hello-world");
+    it("should create a normalized slug using Slug.generate", () => {
+        const spy = vi.spyOn(Slug, "generate").mockReturnValue("test-slug-123");
+
+        const slug = SlugValueObject.create("Test Slug");
+
+        expect(spy).toHaveBeenCalledWith("Test Slug");
+        expect(slug.value).toBe("test-slug-123");
     });
 
-    it("should remove accents and special characters", () => {
-        const slug = SlugValueObject.create("Olá João! Programação avançada");
-        expect(slug.value).toBe("ola-joao-programacao-avancada");
+    it("should create from string without modification", () => {
+        const slug = SlugValueObject.fromString("raw-slug");
+
+        expect(slug.value).toBe("raw-slug");
     });
 
-    it("should replace multiple spaces and special characters with a single hyphen", () => {
-        const slug = SlugValueObject.create("DDD   + Clean   Architecture!!!");
-        expect(slug.value).toBe("ddd-clean-architecture");
+    it("should compare two equal slugs", () => {
+        const slug1 = SlugValueObject.fromString("same-slug");
+        const slug2 = SlugValueObject.fromString("same-slug");
+
+        expect(slug1.equals(slug2)).toBe(true);
     });
 
-    it("should remove leading and trailing hyphens", () => {
-        const slug = SlugValueObject.create("   ---Hello World---   ");
-        expect(slug.value).toBe("hello-world");
+    it("should detect different slugs", () => {
+        const slug1 = SlugValueObject.fromString("slug-1");
+        const slug2 = SlugValueObject.fromString("slug-2");
+
+        expect(slug1.equals(slug2)).toBe(false);
     });
 
-    it("should convert underscores to hyphens", () => {
-        const slug = SlugValueObject.create("this_is_a_test");
-        expect(slug.value).toBe("this-is-a-test");
-    });
+    it("should expose value via getter", () => {
+        const slug = SlugValueObject.fromString("my-slug");
 
-    it("should handle empty strings", () => {
-        const slug = SlugValueObject.create("");
-        expect(slug.value).toBe("");
-    });
-
-    it("should handle strings with only invalid characters", () => {
-        const slug = SlugValueObject.create("!!!@#$$%^&*()");
-        expect(slug.value).toBe("");
-    });
-
-    it("should normalize mixed-case, accents, spaces, and symbols together", () => {
-        const input = "  Olá João! Let's test-slug_value.  ";
-        const slug = SlugValueObject.create(input);
-        expect(slug.value).toBe("ola-joao-let-s-test-slug-value");
+        expect(slug.value).toBe("my-slug");
     });
 });

@@ -3,9 +3,7 @@ import type { UserJwtPayload } from '@/infra/modules/auth/jwt.strategy';
 import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
 import { IsString, MaxLength } from 'class-validator';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
-import { HasherService } from 'src/services/hasher/hasher.service';
-import { PrismaService } from 'src/services/prisma/prisma.service';
-import { Slug } from 'src/utils/slug-generator';
+import { NestCreateQuestionUseCase } from '../use-cases/nest-create-question-use-case';
 
 export class CreteQuestionBody {
     @IsString()
@@ -20,8 +18,7 @@ export class CreteQuestionBody {
 @Controller('/questions')
 export class CreateQuestionController {
     constructor(
-        readonly prismaService: PrismaService,
-        readonly hasherService: HasherService,
+        readonly nestCreateQuestionUseCase: NestCreateQuestionUseCase,
     ) { }
 
     @Post()
@@ -34,17 +31,15 @@ export class CreateQuestionController {
 
 
 
-        const question = await this.prismaService.question.create({
-            data: {
-                content: body.content,
-                title: body.title,
-                slug: Slug.generate(body.title),
-                authorId: user.sub
-            }
+        const response = await this.nestCreateQuestionUseCase.execute({
+            title: body.title,
+            content: body.content,
+            authorId: user.sub,
+            attachmentsIds: []
         })
 
         return {
-            slug: question.slug
+            slug: response.question.slug.value
         }
     }
 }

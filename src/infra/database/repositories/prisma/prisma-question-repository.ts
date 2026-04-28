@@ -1,41 +1,30 @@
 import { UniqueEntityId } from "@/core/entities/unique-entity-id";
 import type { PaginationParams } from "@/core/repositories/pagination-params";
-import { QuestionAttachmentRepository } from "@/domain/forum/application/repositories/question-attachment-repository.";
-import type { QuestionRepository } from "@/domain/forum/application/repositories/question-repository";
+import type { FindLatestQuestions, QuestionRepository } from "@/domain/forum/application/repositories/question-repository";
 import { Question } from "@/domain/forum/enterprise/entities/question";
 import { SlugValueObject } from "@/domain/forum/enterprise/value-object/slug-value-object";
 import { PrismaService } from "@/services/prisma/prisma.service";
 import { Injectable } from "@nestjs/common";
 import { PrismaQuestionMapper } from "../../mappers/prisma-questoin-mapper";
+import { PrismaQuestionAttachmentRepository } from "./prisma-question-attachment-repository";
 
-
-interface Repositories {
-    questionAttachmentsRepository: QuestionAttachmentRepository;
-}
-interface Services {
-    prismaService: PrismaService
-}
-
-interface PrismaQuestionRepositoryDeps {
-    repositories: Repositories,
-    services: Services
-}
 
 @Injectable()
 export class PrismaQuestionRepository implements QuestionRepository {
-    questionAttachmentsRepository: QuestionAttachmentRepository | undefined
+    questionAttachmentsRepository: PrismaQuestionAttachmentRepository | undefined
     prismaService: PrismaService
 
-    constructor(deps: PrismaQuestionRepositoryDeps) {
-        this.questionAttachmentsRepository = deps.repositories.questionAttachmentsRepository
-        this.prismaService = deps.services.prismaService
+    constructor(prismaService: PrismaService,
+        prismaQuestionAttachmentRepository: PrismaQuestionAttachmentRepository) {
+        this.questionAttachmentsRepository = prismaQuestionAttachmentRepository
+        this.prismaService = prismaService
     }
 
 
-    async findLatest(props: PaginationParams): Promise<Question[]> {
+    async findLatest(props: PaginationParams): Promise<FindLatestQuestions> {
         const { limit = 10, page = 1 } = props;
 
-        const questions = await this.prismaService.question.findMany({
+        const questionsPrismaPromise = this.prismaService.question.findMany({
             orderBy: {
                 createdAt: "desc",
             },
@@ -43,8 +32,15 @@ export class PrismaQuestionRepository implements QuestionRepository {
             skip: (page - 1) * limit,
         });
 
+        const questionCountPrismaPromise = this.prismaService.question.count()
+
+        const [questions, questionsCount] = await Promise.all([questionsPrismaPromise, questionCountPrismaPromise])
+
         const questionsMapped = questions.map(PrismaQuestionMapper.toDomain)
-        return questionsMapped
+        return {
+            count: questionsCount,
+            questions: questionsMapped
+        }
 
 
     }

@@ -1,3 +1,5 @@
+import { Slug } from "@/core/slug-generator";
+
 export class SlugValueObject {
     private constructor(private slug: string) { }
 
@@ -10,16 +12,7 @@ export class SlugValueObject {
      * 
      */
     static create(plainText: string) {
-        const slug = plainText
-            .normalize("NFKD")
-            .toLowerCase()
-            .trim()
-            .replace(/[\u0300-\u036f]/g, "")
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/^-+|-+$/g, "")
-            .replace(/_/g, "-")
-            .replace(/-$/g, "");
-
+        const slug = Slug.generate(plainText);
         return new SlugValueObject(slug);
     }
 

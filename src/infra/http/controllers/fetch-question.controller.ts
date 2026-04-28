@@ -2,6 +2,7 @@ import { Controller, Get, Query } from "@nestjs/common";
 import { Type } from "class-transformer";
 import { IsNumber, IsOptional, Min } from "class-validator";
 import { PrismaService } from "src/services/prisma/prisma.service";
+import { NestFetchLatestQuestionsUseCase } from "../use-cases/nest-fetch-latest-questions-use-case";
 
 
 
@@ -24,22 +25,17 @@ export class PaginationQueryParams {
 
 @Controller("/questions")
 export class FetchQuestionController {
-    constructor(readonly prismaService: PrismaService) { }
+    constructor(readonly prismaService: PrismaService, readonly UseCase: NestFetchLatestQuestionsUseCase) { }
     @Get()
     async handler(@Query() query: PaginationQueryParams) {
-        const questionsPromise = this.prismaService.question.findMany({
-            take: query.limit,
-            skip: (query.page - 1) * query.limit,
+        const response = await this.UseCase.execute({
+            limit: query.limit,
+            page: query.page
         })
 
-        const questionCountPromise = this.prismaService.question.count()
-
-        const [questions, questionCount] = await Promise.all([questionsPromise, questionCountPromise])
-
-
         return {
-            questions,
-            count: questionCount
+            questions: response.questions,
+            count: response.count
         }
     }
 

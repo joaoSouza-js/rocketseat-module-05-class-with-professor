@@ -1,11 +1,14 @@
+import { UniqueEntityId } from "@/core/entities/unique-entity-id"
+import { Slug } from "@/core/slug-generator"
 import { PrismaService } from "@/services/prisma/prisma.service"
-import { Slug } from "@/utils/slug-generator"
 import { faker } from "@faker-js/faker"
 
 type prismaQuestion = Partial<{
     title: string,
     content: string
     slug: string
+    authorId: UniqueEntityId
+
 }>
 
 export async function createPrismaQuestion(prismaService: PrismaService, question?: prismaQuestion) {
@@ -17,7 +20,8 @@ export async function createPrismaQuestion(prismaService: PrismaService, questio
         data: {
             content,
             title,
-            slug
+            slug,
+            authorId: question?.authorId?.toString() ?? UniqueEntityId.create().toString()
         }
     })
 

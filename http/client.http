@@ -29,11 +29,12 @@ Authorization: Bearer {{authToken}}
 
 {
 
-    "title": "joe@gmail.com",
-    "content": "123456"
+    "title": "how to create a db",
+    "content": "content from this question"
 }
 
 ### @name fetchQuestion
 GET {{baseUrl}}/questions HTTP/1.1
 Authorization: Bearer {{authToken}}
+
 

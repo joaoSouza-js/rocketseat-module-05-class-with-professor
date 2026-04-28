@@ -37,7 +37,7 @@ describe('Fetch question (E2E)', () => {
         const questionsPromises = Array.from({ length: 8 }, () => {
             return createPrismaQuestion(prismaService)
         })
-        const questions = await Promise.all(questionsPromises)
+        await Promise.all(questionsPromises)
         const user = await createPrismaUser({ prismaService, hashService: hashService })
         const agent = request(app.getHttpServer());
 

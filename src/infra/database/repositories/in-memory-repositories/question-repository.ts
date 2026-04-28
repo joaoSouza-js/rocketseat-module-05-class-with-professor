@@ -1,7 +1,7 @@
 import type { UniqueEntityId } from "@/core/entities/unique-entity-id";
 import type { PaginationParams } from "@/core/repositories/pagination-params";
 import { QuestionAttachmentRepository } from "@/domain/forum/application/repositories/question-attachment-repository.";
-import type { QuestionRepository } from "@/domain/forum/application/repositories/question-repository";
+import type { FindLatestQuestions, QuestionRepository } from "@/domain/forum/application/repositories/question-repository";
 import type { Question } from "@/domain/forum/enterprise/entities/question";
 import type { SlugValueObject } from "@/domain/forum/enterprise/value-object/slug-value-object";
 
@@ -22,7 +22,7 @@ export class QuestionRepositoryInMemory implements QuestionRepository {
     }
 
 
-    findLatest(props: PaginationParams): Promise<Question[]> {
+    findLatest(props: PaginationParams): Promise<FindLatestQuestions> {
         const { limit = 10, page = 1 } = props;
 
         const questionSortedByLastDate = this.questions.sort((a, b) => {
@@ -33,7 +33,11 @@ export class QuestionRepositoryInMemory implements QuestionRepository {
             (page - 1) * limit,
             page * limit,
         );
-        return Promise.resolve(questions);
+        const response: FindLatestQuestions = {
+            count: this.questions.length,
+            questions: questions
+        }
+        return Promise.resolve(response);
     }
 
     update(question: Question): Promise<void> {
