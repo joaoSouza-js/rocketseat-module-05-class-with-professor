@@ -6,13 +6,9 @@ import { PrismaNotificationRepository } from '../../repositories/prisma/prisma-n
 import { PrismaQuestionAttachmentRepository } from '../../repositories/prisma/prisma-question-attachment-repository';
 import { PrismaQuestionCommentRepository } from '../../repositories/prisma/prisma-question-comment-repository';
 import { PrismaQuestionRepository } from '../../repositories/prisma/prisma-question-repository';
-import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
-    imports: [
-        PrismaModule,
 
-    ],
     providers: [
         PrismaAnswerAttachmentRepository,
         PrismaAnswerCommentRepository,

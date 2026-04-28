@@ -4,6 +4,7 @@ import 'dotenv/config';
 import { validate } from '../config/config';
 import { ApiConfigModule } from '../modules/api-config/api-config.module';
 import { ApplicationConfigModule } from '../modules/application-config/application-config/application-config.module';
+import { PrismaModule } from './database/modules/prisma/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { HttpModule } from './modules/http/http.module';
 
@@ -19,6 +20,7 @@ import { HttpModule } from './modules/http/http.module';
     ApplicationConfigModule,
     AuthModule,
     HttpModule,
+    PrismaModule,
   ],
 
 })
