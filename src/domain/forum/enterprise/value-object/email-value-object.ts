@@ -1,5 +1,5 @@
 export class EmailValueObject {
-    private constructor(private email: string) {}
+    private constructor(private email: string) { }
 
     static fromString(raw: string): EmailValueObject {
         const rawWithoutSpaces = raw.trim().toLowerCase();
@@ -8,5 +8,10 @@ export class EmailValueObject {
         return new EmailValueObject(rawWithoutSpaces);
     }
 
-    get value(){return this.email }
+    compare(comparableEmail: EmailValueObject) {
+        const isSameEmail = this.value === comparableEmail.email
+        return isSameEmail
+    }
+
+    get value() { return this.email }
 }

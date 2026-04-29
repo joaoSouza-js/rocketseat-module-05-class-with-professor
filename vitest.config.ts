@@ -15,6 +15,7 @@ export default defineConfig({
             'e2e/**',        // 👈 ignore this folder
             'src/legacy/**', // 👈 example
         ],
+
     },
     oxc: false,
 

@@ -3,7 +3,7 @@ import type { UniqueEntityId } from "@/core/entities/unique-entity-id";
 import { EmailValueObject } from "@/domain/forum/enterprise/value-object/email-value-object";
 
 
-interface StudentProps {
+export interface StudentProps {
     name: string;
     email: EmailValueObject;
     password: string;

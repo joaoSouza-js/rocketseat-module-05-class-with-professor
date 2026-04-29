@@ -6,6 +6,7 @@ import { PrismaNotificationRepository } from '../../repositories/prisma/prisma-n
 import { PrismaQuestionAttachmentRepository } from '../../repositories/prisma/prisma-question-attachment-repository';
 import { PrismaQuestionCommentRepository } from '../../repositories/prisma/prisma-question-comment-repository';
 import { PrismaQuestionRepository } from '../../repositories/prisma/prisma-question-repository';
+import { PrismaStudentRepository } from '../../repositories/prisma/prisma-student-repository';
 
 @Module({
 
@@ -14,7 +15,7 @@ import { PrismaQuestionRepository } from '../../repositories/prisma/prisma-quest
         PrismaAnswerCommentRepository,
         PrismaAnswerRepository,
         PrismaNotificationRepository,
-
+        PrismaStudentRepository,
         PrismaQuestionAttachmentRepository,
         PrismaQuestionCommentRepository,
         PrismaQuestionRepository
@@ -24,6 +25,7 @@ import { PrismaQuestionRepository } from '../../repositories/prisma/prisma-quest
         PrismaAnswerCommentRepository,
         PrismaAnswerRepository,
         PrismaNotificationRepository,
+        PrismaStudentRepository,
         PrismaQuestionAttachmentRepository,
         PrismaQuestionCommentRepository,
         PrismaQuestionRepository
