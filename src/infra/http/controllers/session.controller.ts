@@ -1,8 +1,7 @@
-import { Body, Controller, HttpCode, Post, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { AuthenticateStudentUseCaseCaseResponse } from '@/domain/forum/application/use-cases/student/authenticate-student-use-case';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
-import { HasherService } from 'src/services/hasher/hasher.service';
-import { PrismaService } from 'src/services/prisma/prisma.service';
+import { NestAuthenticateStudentUseCase } from '../use-cases/nest-authenticate-student-use-case';
 
 export class SessionDto {
     @IsEmail()
@@ -17,33 +16,12 @@ export class SessionDto {
 
 @Controller('/sessions')
 export class SessionController {
-    constructor(
-        readonly prismaService: PrismaService,
-        readonly hasherService: HasherService,
-        readonly jwtService: JwtService
-    ) { }
-
+    constructor(readonly useCase: NestAuthenticateStudentUseCase) { }
     @Post()
     @HttpCode(201)
-    async handler(@Body() body: SessionDto) {
+    async handler(@Body() body: SessionDto): Promise<AuthenticateStudentUseCaseCaseResponse> {
 
-        const findUser = await this.prismaService.user.findUniqueOrThrow({
-            where: {
-                email: body.email
-            }
-        })
-
-        const isPasswordValid = await this.hasherService.compare(body.password, findUser.password)
-
-
-        if (!isPasswordValid) throw new UnauthorizedException('Invalid credentials')
-
-
-        const token = this.jwtService.sign({
-            sub: findUser.id
-        })
-        return {
-            access_token: token
-        }
+        const response = await this.useCase.execute({ email: body.email, password: body.password });
+        return response
     }
 }

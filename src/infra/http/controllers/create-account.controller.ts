@@ -1,7 +1,6 @@
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
-import { HasherService } from 'src/services/hasher/hasher.service';
-import { PrismaService } from 'src/services/prisma/prisma.service';
+import { NestCreateStudentUseCase } from '../use-cases/nest-create-student-use-case';
 
 export class CreateUserDto {
     @IsEmail()
@@ -20,20 +19,14 @@ export class CreateUserDto {
 @Controller('/accounts')
 export class CreateAccountController {
     constructor(
-        readonly prismaService: PrismaService,
-        readonly hasherService: HasherService,
+        readonly nestCreateStudentUseCase: NestCreateStudentUseCase
     ) { }
 
     @Post()
     @HttpCode(201)
     async handler(@Body() body: CreateUserDto) {
-        const hashedPassword = await this.hasherService.hash(body.password);
-        await this.prismaService.user.create({
-            data: {
-                email: body.email,
-                password: hashedPassword,
-                name: body.name,
-            },
-        });
+        const { email, password, name } = body;
+        await this.nestCreateStudentUseCase.execute({ email, password, name });
+
     }
 }
