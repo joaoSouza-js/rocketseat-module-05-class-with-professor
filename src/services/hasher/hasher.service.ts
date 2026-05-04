@@ -1,10 +1,11 @@
-import { Hasher } from "@/domain/forum/application/cryptography/hasher"
+import { HasherComparer } from "@/domain/forum/application/cryptography/hasher-comparer"
+import { HasherGenerator } from "@/domain/forum/application/cryptography/hasher-generator"
 import { Injectable } from "@nestjs/common"
 import bycrypt from "bcrypt"
 
 @Injectable()
-export class HasherService implements Hasher {
-    async hash(password: string): Promise<string> {
+export class HasherService implements HasherGenerator, HasherComparer {
+    async generate(password: string): Promise<string> {
         const salt = await bycrypt.genSalt()
         const hashedPassword = await bycrypt.hash(password, salt)
         return hashedPassword

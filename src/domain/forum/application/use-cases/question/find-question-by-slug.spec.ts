@@ -1,6 +1,6 @@
 import { Slug } from "@/core/slug-generator";
-import { QuestionRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/question-repository";
 import { makeQuestion } from "test/factories/make-question";
+import { QuestionRepositoryInMemory } from "test/in-memory-repositories/question-repository";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { SlugValueObject } from "../../../enterprise/value-object/slug-value-object";
 import type { QuestionRepository } from "../../repositories/question-repository";

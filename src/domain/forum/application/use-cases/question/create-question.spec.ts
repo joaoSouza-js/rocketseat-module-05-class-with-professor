@@ -1,4 +1,4 @@
-import { QuestionRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/question-repository";
+import { QuestionRepositoryInMemory } from "test/in-memory-repositories/question-repository";
 import { beforeEach, describe, expect, it } from "vitest";
 import type { QuestionRepository } from "../../repositories/question-repository";
 import { CreateQuestionUseCase } from "./create-question";

@@ -1,3 +1,4 @@
+
 import { CredentialsError } from "@/core/error/credentials-error"
 import { ensureExists } from "@/core/guards/ensure-exist"
 import { EmailValueObject } from "@/domain/forum/enterprise/value-object/email-value-object"
@@ -11,7 +12,7 @@ interface AuthenticateStudentUseCaseCaseRequest {
 }
 
 export interface AuthenticateStudentUseCaseCaseResponse {
-    accessToken: string
+    access_token: string
 }
 
 interface Repositories {
@@ -57,8 +58,9 @@ export class AuthenticateStudentUseCaseCase {
             sub: student.id.toString()
         })
 
+
         return {
-            accessToken
+            access_token: accessToken
         }
     }
 }

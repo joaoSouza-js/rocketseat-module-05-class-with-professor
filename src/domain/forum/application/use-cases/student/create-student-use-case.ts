@@ -1,7 +1,7 @@
 import { ConflictResource } from "@/core/error/conflict-resouce";
 import { Student } from "@/domain/forum/enterprise/entities/student";
 import { EmailValueObject } from "@/domain/forum/enterprise/value-object/email-value-object";
-import { Hasher } from "../../cryptography/hasher";
+import { HasherGenerator } from "../../cryptography/hasher-generator";
 import { StudentRepository } from "../../repositories/student-repository";
 
 interface CreateStudentUseCaseRequest {
@@ -16,7 +16,7 @@ interface Repositories {
 }
 
 interface Services {
-    hasher: Hasher
+    hasher: HasherGenerator
 }
 
 interface CreateStudentUseCaseDeps {
@@ -26,7 +26,7 @@ interface CreateStudentUseCaseDeps {
 
 export class CreateStudentUseCase {
     studentsRepository: StudentRepository
-    hasher: Hasher
+    hasher: HasherGenerator
 
 
     constructor(readonly deps: CreateStudentUseCaseDeps) {
@@ -35,7 +35,7 @@ export class CreateStudentUseCase {
     }
 
     async execute(input: CreateStudentUseCaseRequest) {
-        const hashPassword = await this.hasher.hash(input.password)
+        const hashPassword = await this.hasher.generate(input.password)
 
         const studentEmail = EmailValueObject.fromString(input.email)
         const foundStudent = await this.studentsRepository.findByEmail(studentEmail)

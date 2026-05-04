@@ -1,8 +1,7 @@
 import { CurrentUser } from '@/infra/modules/auth/current-use-decorator';
 import type { UserJwtPayload } from '@/infra/modules/auth/jwt.strategy';
-import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { IsString, MaxLength } from 'class-validator';
-import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { NestCreateQuestionUseCase } from '../use-cases/nest-create-question-use-case';
 
 export class CreteQuestionBody {
@@ -23,7 +22,7 @@ export class CreateQuestionController {
 
     @Post()
     @HttpCode(201)
-    @UseGuards(JwtAuthGuard)
+
     async handler(
         @Body() body: CreteQuestionBody,
         @CurrentUser() user: UserJwtPayload,

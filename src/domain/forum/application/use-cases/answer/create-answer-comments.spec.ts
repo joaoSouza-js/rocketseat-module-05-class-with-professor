@@ -1,6 +1,6 @@
-import { AnswerCommentRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/answer-comment-repository";
-import { AnswerRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/answer-repository";
 import { makeAnswer } from "test/factories/make-answer";
+import { AnswerCommentRepositoryInMemory } from "test/in-memory-repositories/answer-comment-repository";
+import { AnswerRepositoryInMemory } from "test/in-memory-repositories/answer-repository";
 import { beforeEach, describe, expect, it } from "vitest";
 import type { AnswerCommentRepository } from "../../repositories/answer-comment-repository";
 import { CreateAnswerCommentUseCase } from "./create-answer-comments";

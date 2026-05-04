@@ -7,6 +7,7 @@ import { ApiConfigService } from "src/services/api-config/api-config.service";
     imports: [
         JwtModule.registerAsync({
             inject: [ApiConfigService],
+            global: true,
             useFactory: (config: ApiConfigService) => ({
                 privateKey: Buffer.from(config.jwtSecretRsaKey, "base64"),
                 publicKey: Buffer.from(config.jwtPublicRsaKey, "base64"),

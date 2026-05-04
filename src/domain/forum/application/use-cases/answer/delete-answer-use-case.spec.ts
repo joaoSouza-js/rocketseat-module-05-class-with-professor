@@ -1,5 +1,5 @@
-import { AnswerRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/answer-repository";
 import { makeAnswer } from "test/factories/make-answer";
+import { AnswerRepositoryInMemory } from "test/in-memory-repositories/answer-repository";
 import { beforeEach, describe, expect, it } from "vitest";
 import { ResourceNotFoundError } from "../../../../../core/error/resource-not-found-error";
 import type { AnswerRepository } from "../../repositories/answer-repository";

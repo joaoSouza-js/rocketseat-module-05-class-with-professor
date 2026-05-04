@@ -1,3 +1,4 @@
+import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { AppModule } from '@/infra/app.module';
 import { HasherService } from '@/services/hasher/hasher.service';
 import { PrismaService } from '@/services/prisma/prisma.service';
@@ -34,11 +35,11 @@ describe('Fetch question (E2E)', () => {
     });
 
     test('[GET] /questions', async () => {
+        const user = await createPrismaUser({ prismaService, hashService: hashService })
         const questionsPromises = Array.from({ length: 8 }, () => {
-            return createPrismaQuestion(prismaService)
+            return createPrismaQuestion(prismaService, { authorId: UniqueEntityId.fromString(user.id) })
         })
         await Promise.all(questionsPromises)
-        const user = await createPrismaUser({ prismaService, hashService: hashService })
         const agent = request(app.getHttpServer());
 
         const token = jwtService.sign({ sub: user.id })

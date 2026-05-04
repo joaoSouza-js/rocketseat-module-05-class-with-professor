@@ -1,3 +1,4 @@
+import { Public } from '@/infra/modules/auth/decorators/public.decorator';
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 import { NestCreateStudentUseCase } from '../use-cases/nest-create-student-use-case';
@@ -17,6 +18,7 @@ export class CreateUserDto {
 }
 
 @Controller('/accounts')
+@Public()
 export class CreateAccountController {
     constructor(
         readonly nestCreateStudentUseCase: NestCreateStudentUseCase

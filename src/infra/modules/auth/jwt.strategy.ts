@@ -20,7 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     constructor(apiConfigService: ApiConfigService) {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-            secretOrKey: Buffer.from(apiConfigService.jwtSecretRsaKey, 'base64'),
+            secretOrKey: Buffer.from(apiConfigService.jwtPublicRsaKey, 'base64'),
             algorithms: ['RS256'],
         });
     }

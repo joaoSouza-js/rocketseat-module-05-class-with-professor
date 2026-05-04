@@ -1,7 +1,7 @@
-import { AnswerRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/answer-repository";
-import { QuestionRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/question-repository";
 import { makeAnswer } from "test/factories/make-answer";
 import { makeQuestion } from "test/factories/make-question";
+import { AnswerRepositoryInMemory } from "test/in-memory-repositories/answer-repository";
+import { QuestionRepositoryInMemory } from "test/in-memory-repositories/question-repository";
 import { beforeEach, describe, expect, it } from "vitest";
 import { BestAnswerUseCase } from "./best-answer-use-case";
 

@@ -1,5 +1,5 @@
 import type { AnswerRepository } from "@/domain/forum/application/repositories/answer-repository";
-import { AnswerRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/answer-repository";
+import { AnswerRepositoryInMemory } from "test/in-memory-repositories/answer-repository";
 import { beforeEach, describe, expect, it } from "vitest";
 import { AnswerQuestionUseCase } from "./answer-question-use-case";
 

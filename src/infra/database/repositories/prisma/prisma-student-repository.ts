@@ -12,7 +12,7 @@ export class PrismaStudentRepository implements StudentRepository {
 
     async findByEmail(email: EmailValueObject): Promise<Student | null> {
         const studentFounded = await this.prismaService.user.findUnique({ where: { email: email.value } })
-
+        console.log("email", email.value)
         if (studentFounded === null) return null
 
         const studentMapped = PrismaStudentMapper.toDomain(studentFounded)
@@ -21,7 +21,9 @@ export class PrismaStudentRepository implements StudentRepository {
     }
     async create(student: Student): Promise<void> {
         const studentMapped = PrismaStudentMapper.toPersistence(student)
-        this.prismaService.user.create({ data: studentMapped })
+        await this.prismaService.user.create({
+            data: studentMapped
+        })
     }
 
 }

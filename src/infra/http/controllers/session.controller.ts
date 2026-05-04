@@ -1,4 +1,5 @@
 import { AuthenticateStudentUseCaseCaseResponse } from '@/domain/forum/application/use-cases/student/authenticate-student-use-case';
+import { Public } from '@/infra/modules/auth/decorators/public.decorator';
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { NestAuthenticateStudentUseCase } from '../use-cases/nest-authenticate-student-use-case';
@@ -15,6 +16,7 @@ export class SessionDto {
 }
 
 @Controller('/sessions')
+@Public()
 export class SessionController {
     constructor(readonly useCase: NestAuthenticateStudentUseCase) { }
     @Post()

@@ -1,7 +1,7 @@
 import { UniqueEntityId } from "@/core/entities/unique-entity-id";
-import { QuestionAttachmentRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/question-attachment-repository";
-import { QuestionRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/question-repository";
 import { makeQuestion } from "test/factories/make-question";
+import { QuestionAttachmentRepositoryInMemory } from "test/in-memory-repositories/question-attachment-repository";
+import { QuestionRepositoryInMemory } from "test/in-memory-repositories/question-repository";
 import { beforeEach, describe, expect, it } from "vitest";
 import { QuestionAttachmentRepository } from "../../repositories/question-attachment-repository.";
 import type { QuestionRepository } from "../../repositories/question-repository";

@@ -1,23 +1,21 @@
 import { ConflictResource } from "@/core/error/conflict-resouce"
 import { EmailValueObject } from "@/domain/forum/enterprise/value-object/email-value-object"
-import { StudentRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/student-repository"
-import { beforeEach, describe, expect, it, vi } from "vitest"
-import { Hasher } from "../../cryptography/hasher"
+import { FakeHasher } from "test/cryptography/fake-hasher"
+import { StudentRepositoryInMemory } from "test/in-memory-repositories/student-repository"
+import { beforeEach, describe, expect, it } from "vitest"
+import { HasherGenerator } from "../../cryptography/hasher-generator"
 import { StudentRepository } from "../../repositories/student-repository"
 import { CreateStudentUseCase } from "./create-student-use-case"
 
 
 
 describe("create student use case", () => {
-    let hasher: Hasher
+    let hasher: HasherGenerator
     let studentRepository: StudentRepository
     let sut: CreateStudentUseCase
 
     beforeEach(() => {
-        hasher = {
-            compare: vi.fn().mockReturnValue(true),
-            hash: vi.fn().mockReturnValue("hashed-password")
-        }
+        hasher = new FakeHasher()
         studentRepository = new StudentRepositoryInMemory()
         sut = new CreateStudentUseCase({
             repositories: {

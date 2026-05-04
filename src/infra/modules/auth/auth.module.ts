@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { CryptographyModule } from '../crypto/crypto.module';
 import { UseCasesModule } from '../use-cases/use-case.module';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
     imports: [
@@ -12,6 +13,7 @@ import { UseCasesModule } from '../use-cases/use-case.module';
         CryptographyModule,
     ],
     controllers: [SessionController, CreateAccountController],
+    providers: [JwtStrategy]
 
 })
 export class AuthModule { }

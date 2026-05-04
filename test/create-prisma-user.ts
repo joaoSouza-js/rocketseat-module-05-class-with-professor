@@ -19,7 +19,8 @@ export async function createPrismaUser(props: CreatePrismaUser) {
     const { hashService, prismaService, user } = props
 
     const userPassword = user?.password ?? faker.internet.password()
-    const passwordHash = await hashService.hash(userPassword)
+    const passwordHash = await hashService.generate(userPassword)
+    console.log("plaintext", userPassword, "hash", passwordHash)
     const userCreated = await prismaService.user.create({
         data: {
             name: user?.name ?? faker.person.firstName(),

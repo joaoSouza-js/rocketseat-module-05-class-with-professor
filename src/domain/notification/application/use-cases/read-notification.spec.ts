@@ -1,5 +1,5 @@
-import { NotificationRepositoryInMemory } from "@/infra/database/repositories/in-memory-repositories/notification-repository";
 import { makeNotification } from "test/factories/make-notification";
+import { NotificationRepositoryInMemory } from "test/in-memory-repositories/notification-repository";
 import { beforeEach, describe, expect, it } from "vitest";
 import { ReadNotificationUseCase } from "./read-notification";
 

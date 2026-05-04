@@ -24,10 +24,13 @@ describe('Create account controller (e2e)', () => {
 
     test('[POST] /accounts', async () => {
         const agent = request(app.getHttpServer())
-
+        const userEmail = "joe@me.com"
         const user = await createPrismaUser({
             prismaService,
             hashService,
+            user: {
+                email: userEmail
+            }
 
         })
 
