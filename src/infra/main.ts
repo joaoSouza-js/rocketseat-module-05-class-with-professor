@@ -1,5 +1,5 @@
 
-import { ApiConfigService } from '@/services/api-config/api-config.service';
+import { ApiConfigService } from '@/infra/services/api-config/api-config.service';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';

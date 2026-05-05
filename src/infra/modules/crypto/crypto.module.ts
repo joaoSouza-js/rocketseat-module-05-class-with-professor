@@ -1,7 +1,7 @@
-import { EncrypterService } from "@/services/encrypter/encrypter.service";
+import { ApiConfigService } from "@/infra/services/api-config/api-config.service";
+import { EncrypterService } from "@/infra/services/encrypter/encrypter.service";
 import { Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
-import { ApiConfigService } from "src/services/api-config/api-config.service";
 
 @Module({
     imports: [

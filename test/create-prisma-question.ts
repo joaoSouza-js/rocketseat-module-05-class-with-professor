@@ -1,6 +1,6 @@
 import { UniqueEntityId } from "@/core/entities/unique-entity-id"
 import { Slug } from "@/core/slug-generator"
-import { PrismaService } from "@/services/prisma/prisma.service"
+import { PrismaService } from "@/infra/services/prisma/prisma.service"
 import { faker } from "@faker-js/faker"
 
 type prismaQuestion = Partial<{

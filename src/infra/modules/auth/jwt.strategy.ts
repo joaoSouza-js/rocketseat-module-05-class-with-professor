@@ -1,10 +1,10 @@
 
+import { ApiConfigService } from '@/infra/services/api-config/api-config.service';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { plainToInstance } from 'class-transformer';
 import { IsString, validateSync } from 'class-validator';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { ApiConfigService } from 'src/services/api-config/api-config.service';
 
 class PayloadSchema {
     @IsString()

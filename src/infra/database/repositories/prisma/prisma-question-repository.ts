@@ -3,7 +3,7 @@ import type { PaginationParams } from "@/core/repositories/pagination-params";
 import type { FindLatestQuestions, QuestionRepository } from "@/domain/forum/application/repositories/question-repository";
 import { Question } from "@/domain/forum/enterprise/entities/question";
 import { SlugValueObject } from "@/domain/forum/enterprise/value-object/slug-value-object";
-import { PrismaService } from "@/services/prisma/prisma.service";
+import { PrismaService } from "@/infra/services/prisma/prisma.service";
 import { Injectable } from "@nestjs/common";
 import { PrismaQuestionMapper } from "../../mappers/prisma-questoin-mapper";
 import { PrismaQuestionAttachmentRepository } from "./prisma-question-attachment-repository";

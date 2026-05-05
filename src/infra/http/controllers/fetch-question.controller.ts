@@ -1,7 +1,7 @@
+import { PrismaService } from '@/infra/services/prisma/prisma.service';
 import { Controller, Get, Query } from '@nestjs/common';
 import { Type } from 'class-transformer';
 import { IsNumber, IsOptional, Min } from 'class-validator';
-import { PrismaService } from 'src/services/prisma/prisma.service';
 import { QuestionPresenter, QuestionPresenterResponse } from '../presenters/question-presenter';
 import { NestFetchLatestQuestionsUseCase } from '../use-cases/nest-fetch-latest-questions-use-case';
 

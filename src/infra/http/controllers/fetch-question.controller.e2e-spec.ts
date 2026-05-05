@@ -1,7 +1,7 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { AppModule } from '@/infra/app.module';
-import { HasherService } from '@/services/hasher/hasher.service';
-import { PrismaService } from '@/services/prisma/prisma.service';
+import { HasherService } from '@/infra/services/hasher/hasher.service';
+import { PrismaService } from '@/infra/services/prisma/prisma.service';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';

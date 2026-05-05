@@ -1,5 +1,5 @@
-import { HasherService } from "@/services/hasher/hasher.service"
-import { PrismaService } from "@/services/prisma/prisma.service"
+import { HasherService } from "@/infra/services/hasher/hasher.service"
+import { PrismaService } from "@/infra/services/prisma/prisma.service"
 import { faker } from "@faker-js/faker"
 
 type User = Partial<{

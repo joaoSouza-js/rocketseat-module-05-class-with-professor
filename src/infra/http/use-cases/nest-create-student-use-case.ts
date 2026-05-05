@@ -1,6 +1,6 @@
 import { CreateStudentUseCase } from "@/domain/forum/application/use-cases/student/create-student-use-case";
 import { PrismaStudentRepository } from "@/infra/database/repositories/prisma/prisma-student-repository";
-import { HasherService } from "@/services/hasher/hasher.service";
+import { HasherService } from "@/infra/services/hasher/hasher.service";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
