@@ -1,4 +1,4 @@
-import { ConflictResource } from "@/core/error/conflict-resouce";
+import { ConflictResource } from "@/core/error/conflict-resource";
 import { Student } from "@/domain/forum/enterprise/entities/student";
 import { EmailValueObject } from "@/domain/forum/enterprise/value-object/email-value-object";
 import { HasherGenerator } from "../../cryptography/hasher-generator";

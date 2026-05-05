@@ -1,4 +1,4 @@
-import { ConflictResource } from "@/core/error/conflict-resouce"
+import { ConflictResource } from "@/core/error/conflict-resource"
 import { EmailValueObject } from "@/domain/forum/enterprise/value-object/email-value-object"
 import { FakeHasher } from "test/cryptography/fake-hasher"
 import { StudentRepositoryInMemory } from "test/in-memory-repositories/student-repository"

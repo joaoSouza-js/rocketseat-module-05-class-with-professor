@@ -4,6 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { PrismaExceptionFilter } from './http/filters/prisma-exception-filter';
+import { UseCaseExceptionFilter } from './http/filters/use-case-exception-filter';
 
 
 async function bootstrap() {
@@ -13,7 +14,7 @@ async function bootstrap() {
     transform: true,
     forbidNonWhitelisted: true
   }))
-  app.useGlobalFilters(new PrismaExceptionFilter())
+  app.useGlobalFilters(new UseCaseExceptionFilter(), new PrismaExceptionFilter())
 
   await app.listen(app.get(ApiConfigService).port);
 }
