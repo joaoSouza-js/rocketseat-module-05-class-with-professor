@@ -7,7 +7,10 @@ export interface QuestionAttachmentProps extends AttachmentProps {
 
 type createQuestionAttachmentProps = Pick<
     QuestionAttachmentProps,
-    "questionId"
+    "questionId" |
+    "title" |
+    "url"
+
 > & {
     id: UniqueEntityId
 }
@@ -16,11 +19,12 @@ export class QuestionAttachment extends Attachment<QuestionAttachmentProps> {
 
 
     static create(input: createQuestionAttachmentProps): QuestionAttachment {
-        const { questionId, id } = input;
+        const { questionId, id, ...rest } = input;
 
         return new QuestionAttachment({
             questionId,
             createdAt: new Date(),
+            ...rest
         }, id);
     }
 
@@ -29,4 +33,5 @@ export class QuestionAttachment extends Attachment<QuestionAttachmentProps> {
     }
 
     get questionId() { return this.props.questionId }
+
 }

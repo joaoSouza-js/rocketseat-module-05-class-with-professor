@@ -34,8 +34,8 @@ export class Answer extends AggregateRoot<AnswerProps> {
         return answer;
     }
 
-    static rehydrate(input: AnswerProps) {
-        return new Answer(input);
+    static rehydrate(input: AnswerProps, _id?: UniqueEntityId) {
+        return new Answer(input, _id);
     }
 
     public canBeManagedByAuthor(authorId: UniqueEntityId): boolean {
@@ -66,6 +66,14 @@ export class Answer extends AggregateRoot<AnswerProps> {
 
     get excerpt() {
         return this.content.substring(0, 120).trimEnd().concat("...");
+    }
+
+    get createdAt() {
+        return this.props.createdAt;
+    }
+
+    get updatedAt() {
+        return this.props.updatedAt;
     }
 
     get attachments() {
