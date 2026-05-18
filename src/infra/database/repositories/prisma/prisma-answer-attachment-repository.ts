@@ -1,27 +1,36 @@
 import { UniqueEntityId } from "@/core/entities/unique-entity-id";
 import { AnswerAttachmentRepository } from "@/domain/forum/application/repositories/answer-attachment-repository";
 import { AnswerAttachment } from "@/domain/forum/enterprise/entities/answer-attachment";
+import { PrismaService } from "@/infra/services/prisma/prisma.service";
 import { Injectable } from "@nestjs/common";
+import { PrismaAnswerAttachmentMapper } from "../../mappers/prisma-answer-attachment-mapper";
 
 @Injectable()
 export class PrismaAnswerAttachmentRepository implements AnswerAttachmentRepository {
-    public answerAttachments: AnswerAttachment[] = [];
 
-    findManyByAnswerId(
+    constructor(readonly prismaService: PrismaService) { }
+
+
+    async findManyByAnswerId(
         answerId: UniqueEntityId,
     ): Promise<AnswerAttachment[]> {
-        const attachments = this.answerAttachments.filter((attachment) =>
-            attachment.answerId.equals(answerId),
-        );
-        return Promise.resolve(attachments);
+        const questionAttachments = await this.prismaService.attachment.findMany({
+            where: {
+                questionId: answerId.toString()
+            },
+
+        })
+
+        const questionAttachmentsToDomain = questionAttachments.map(PrismaAnswerAttachmentMapper.toDomain)
+        return questionAttachmentsToDomain
     }
 
-    deleteManyByAnswerId(answerId: UniqueEntityId): Promise<null> {
-        this.answerAttachments = this.answerAttachments.filter(
-            (answerAttachment) =>
-                answerAttachment.answerId.equals(answerId) === false,
-        );
-
-        return Promise.resolve(null)
+    async deleteManyByAnswerId(answerId: UniqueEntityId): Promise<null> {
+        await this.prismaService.attachment.deleteMany({
+            where: {
+                answerId: answerId.toString()
+            }
+        })
+        return null
     }
 }

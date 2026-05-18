@@ -2,33 +2,66 @@ import type { UniqueEntityId } from "@/core/entities/unique-entity-id";
 import { DomainEvents } from "@/domain/events/domain-events";
 import type { AnswerRepository } from "@/domain/forum/application/repositories/answer-repository";
 import type { Answer } from "@/domain/forum/enterprise/entities/answer";
+import { PrismaService } from "@/infra/services/prisma/prisma.service";
 import { Injectable } from "@nestjs/common";
+import { PrismaAnswerMapper } from "../../mappers/prisma-answer-mapper";
 @Injectable()
 
 export class PrismaAnswerRepository implements AnswerRepository {
-    findByQuestionId(questionId: UniqueEntityId): Promise<Answer[]> {
-        const answers = this.answers.filter((answer) => answer.questionId.equals(questionId));
-        return Promise.resolve(answers);
+
+    constructor(readonly prismaService: PrismaService) { }
+
+    async findByQuestionId(questionId: UniqueEntityId): Promise<Answer[]> {
+        const answersFounded = await this.prismaService.answer.findMany({
+            where: {
+                questionId: questionId.toString()
+            }
+        })
+        const answers = answersFounded.map(PrismaAnswerMapper.toDomain)
+        return answers
     }
-    update(answer: Answer): Promise<void> {
-        const index = this.answers.findIndex((currentAnswer) => currentAnswer.id.equals(answer.id));
-        this.answers[index] = answer;
+    async update(answer: Answer): Promise<void> {
+        const answerPersistence = PrismaAnswerMapper.toPersistence(answer)
+        await this.prismaService.answer.update({
+            where: {
+                id: answerPersistence.id
+            },
+            data: answerPersistence
+        })
+
         DomainEvents.dispatchEventsForAggregate(answer.id);
 
         return Promise.resolve();
     }
-    delete(answerId: UniqueEntityId): Promise<null> {
-        this.answers.filter((answer) => !answer.id.equals(answerId));
-        return Promise.resolve(null);
-    }
-    findById(answerId: UniqueEntityId): Promise<Answer | null> {
-        const answer = this.answers.find((answer) => answer.id.equals(answerId));
-        return Promise.resolve(answer || null);
-    }
-    private answers: Answer[] = [];
+    async delete(answerId: UniqueEntityId): Promise<null> {
+        await this.prismaService.answer.delete({
+            where: {
+                id: answerId.toString()
+            }
+        })
 
-    save(answer: Answer): Promise<void> {
-        this.answers.push(answer);
+        return null
+    }
+    async findById(answerId: UniqueEntityId): Promise<Answer | null> {
+        const answerFounded = await this.prismaService.answer.findUnique({
+            where: {
+                id: answerId.toString()
+            }
+        })
+
+        if (!answerFounded) {
+            return null
+        }
+        const answer = PrismaAnswerMapper.toDomain(answerFounded)
+
+        return answer
+    }
+
+    async save(answer: Answer): Promise<void> {
+        const answerPersistence = PrismaAnswerMapper.toPersistence(answer)
+        await this.prismaService.answer.create({
+            data: answerPersistence
+        })
         DomainEvents.dispatchEventsForAggregate(answer.id);
         return Promise.resolve();
     }
