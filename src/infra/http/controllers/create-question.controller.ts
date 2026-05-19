@@ -2,6 +2,7 @@ import { CurrentUser } from '@/infra/modules/auth/current-use-decorator';
 import type { UserJwtPayload } from '@/infra/modules/auth/jwt.strategy';
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { IsString, MaxLength } from 'class-validator';
+import { QuestionSlugPresenter, QuestionSlugPresenterResponse } from '../presenters/question-slug-pressentes';
 import { NestCreateQuestionUseCase } from '../use-cases/nest-create-question-use-case';
 
 export class CreteQuestionBody {
@@ -26,9 +27,7 @@ export class CreateQuestionController {
     async handler(
         @Body() body: CreteQuestionBody,
         @CurrentUser() user: UserJwtPayload,
-    ) {
-
-
+    ): Promise<QuestionSlugPresenterResponse> {
 
         const response = await this.nestCreateQuestionUseCase.execute({
             title: body.title,
@@ -37,8 +36,8 @@ export class CreateQuestionController {
             attachmentsIds: []
         })
 
-        return {
-            slug: response.question.slug.value
-        }
+        const questionPresenter = QuestionSlugPresenter.toHTTP(response.question)
+
+        return questionPresenter
     }
 }

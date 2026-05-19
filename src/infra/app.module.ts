@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import 'dotenv/config';
 import { validate } from '../config/config';
-import { PrismaModule } from './database/modules/prisma/prisma.module';
 import { ApiConfigModule } from './modules/api-config/api-config.module';
 import { HttpModule } from './modules/http/http.module';
+import { PrismaModule } from './modules/prisma/prisma.module';
 
 
 @Module({

@@ -1,30 +1,27 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { AppModule } from '@/infra/app.module';
-import { HasherService } from '@/infra/services/hasher/hasher.service';
-import { PrismaService } from '@/infra/services/prisma/prisma.service';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
-import { createPrismaQuestion } from 'test/create-prisma-question';
-import { createPrismaUser } from 'test/create-prisma-user';
+import { QuestionFactory } from 'test/factories/make-question';
+import { StudentFactory } from 'test/factories/make-student';
 
 describe('Fetch question (E2E)', () => {
     let app: INestApplication;
-    let prismaService: PrismaService
     let jwtService: JwtService
-    let hashService: HasherService
+    let studentFactory: StudentFactory
+    let questionFactory: QuestionFactory
 
     beforeAll(async () => {
         const moduleRef = await Test.createTestingModule({
             imports: [AppModule],
+            providers: [StudentFactory, QuestionFactory]
         }).compile();
 
         app = moduleRef.createNestApplication();
-        prismaService = app.get(PrismaService)
         jwtService = app.get(JwtService)
-        hashService = app.get(HasherService)
-
+        studentFactory = app.get(StudentFactory)
+        questionFactory = app.get(QuestionFactory)
         app.useGlobalPipes(
             new ValidationPipe({
                 transform: true,
@@ -35,14 +32,14 @@ describe('Fetch question (E2E)', () => {
     });
 
     test('[GET] /questions', async () => {
-        const user = await createPrismaUser({ prismaService, hashService: hashService })
+        const user = await studentFactory.makePrisma()
         const questionsPromises = Array.from({ length: 8 }, () => {
-            return createPrismaQuestion(prismaService, { authorId: UniqueEntityId.fromString(user.id) })
+            return questionFactory.makePrisma({ authorId: user.id })
         })
         await Promise.all(questionsPromises)
         const agent = request(app.getHttpServer());
 
-        const token = jwtService.sign({ sub: user.id })
+        const token = jwtService.sign({ sub: user.id.toString() })
 
         const response = await agent.get('/questions').set('Authorization', `Bearer ${token}`)
         expect(response.statusCode).toBe(200)

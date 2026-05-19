@@ -42,7 +42,8 @@ export class CreateQuestionUseCase {
             const attachment = QuestionAttachment.create({
                 questionId: newQuestion.id,
                 id: UniqueEntityId.fromString(attachmentId), //attachmentId
-
+                title: newQuestion.title,
+                url: newQuestion.content
             })
 
             return attachment

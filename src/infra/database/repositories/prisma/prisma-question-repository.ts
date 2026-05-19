@@ -91,6 +91,7 @@ export class PrismaQuestionRepository implements QuestionRepository {
     }
 
     async findBySlug(slug: SlugValueObject): Promise<Question | null> {
+
         const questionFoundedBySlug = await this.prismaService.question.findUnique({
             where: {
                 slug: slug.value
