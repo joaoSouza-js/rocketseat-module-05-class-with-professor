@@ -1,5 +1,6 @@
 import { NestAnswerQuestionUseCase } from "@/infra/http/use-cases/nest-answer-question-use-case";
 import { NestAuthenticateStudentUseCase } from "@/infra/http/use-cases/nest-authenticate-student-use-case";
+import { NestBestAnswerQuestionUseCase } from "@/infra/http/use-cases/nest-best-answer-question-use-case";
 import { NestCreateQuestionUseCase } from "@/infra/http/use-cases/nest-create-question-use-case";
 import { NestCreateStudentUseCase } from "@/infra/http/use-cases/nest-create-student-use-case";
 import { NestDeleteAnswerQuestionUseCase } from "@/infra/http/use-cases/nest-delete-answer-question-use-case";
@@ -31,7 +32,8 @@ import { CryptographyModule } from "../crypto/crypto.module";
         NestAnswerQuestionUseCase,
         NestUpdateAnswerQuestionUseCase,
         NestDeleteAnswerQuestionUseCase,
-        NestFetchQuestionsAnswersUseCase
+        NestFetchQuestionsAnswersUseCase,
+        NestBestAnswerQuestionUseCase,
 
     ],
     exports: [
@@ -45,7 +47,8 @@ import { CryptographyModule } from "../crypto/crypto.module";
         NestAnswerQuestionUseCase,
         NestUpdateAnswerQuestionUseCase,
         NestDeleteAnswerQuestionUseCase,
-        NestFetchQuestionsAnswersUseCase
+        NestFetchQuestionsAnswersUseCase,
+        NestBestAnswerQuestionUseCase,
     ]
 })
 export class UseCasesModule { }
