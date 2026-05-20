@@ -12,7 +12,6 @@ export class PrismaStudentRepository implements StudentRepository {
 
     async findByEmail(email: EmailValueObject): Promise<Student | null> {
         const studentFounded = await this.prismaService.user.findUnique({ where: { email: email.value } })
-        console.log("email", email.value)
         if (studentFounded === null) return null
 
         const studentMapped = PrismaStudentMapper.toDomain(studentFounded)

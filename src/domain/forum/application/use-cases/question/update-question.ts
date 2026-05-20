@@ -4,8 +4,8 @@ import { ensureOwnership } from "@/core/guards/ensure-ownership";
 import type { QuestionRepository } from "@/domain/forum/application/repositories/question-repository";
 import type { Question } from "@/domain/forum/enterprise/entities/question";
 import { QuestionAttachment } from "@/domain/forum/enterprise/entities/question-attachment";
-import { QuestionAttachmentRepository } from "../../repositories/question-attachment-repository.";
 import { QuestionAttachmentList } from "@/domain/forum/enterprise/entities/question-attachment-list";
+import { QuestionAttachmentRepository } from "../../repositories/question-attachment-repository.";
 
 interface Repositories {
     questionRepository: QuestionRepository;
@@ -58,7 +58,9 @@ export class UpdateQuestionUseCase {
         const questionAttachments = input.attachmentsIds.map(attachmentId => {
             const attachment = QuestionAttachment.rehydrate({
                 questionId: question.id,
-                createdAt: new Date()
+                createdAt: new Date(),
+                title: question.title,
+                url: question.content
 
             }, UniqueEntityId.fromString(attachmentId))
 
@@ -72,7 +74,6 @@ export class UpdateQuestionUseCase {
         question.attachments = questionAttachmentList
 
         await this.questionRepository.update(question);
-
         return {
             question: question,
         };

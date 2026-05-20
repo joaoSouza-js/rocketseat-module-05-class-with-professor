@@ -33,7 +33,6 @@ describe("Fetch question by slug (E2E)", () => {
             return questionFactory.makePrisma({ authorId: user.id })
         })
         const questions = await Promise.all(questionPromises)
-        console.log(questions)
         const token = jwtService.sign({ sub: "1" })
 
         const question = questions[0]

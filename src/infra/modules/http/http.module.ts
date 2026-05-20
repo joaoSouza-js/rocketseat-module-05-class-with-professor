@@ -1,7 +1,9 @@
 import { JwtAuthGuard } from '@/guards/jwt-auth.guard';
 import { CreateQuestionController } from '@/infra/http/controllers/create-question.controller';
+import { DeleteQuestionController } from '@/infra/http/controllers/delete-question.controller';
 import { FetchQuestionController } from '@/infra/http/controllers/fetch-question.controller';
 import { FindQuestionBySlugController } from '@/infra/http/controllers/find-question-by-slug';
+import { UpdateQuestionController } from '@/infra/http/controllers/update-question.controller';
 import { HasherService } from '@/infra/services/hasher/hasher.service';
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
@@ -12,7 +14,9 @@ import { UseCasesModule } from '../use-cases/use-case.module';
     controllers: [
         CreateQuestionController,
         FetchQuestionController,
-        FindQuestionBySlugController
+        FindQuestionBySlugController,
+        UpdateQuestionController,
+        DeleteQuestionController
     ],
     imports: [
         UseCasesModule,

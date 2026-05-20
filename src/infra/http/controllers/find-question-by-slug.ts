@@ -9,7 +9,6 @@ class FindQuestionBySlugControllerParams {
 }
 
 @Controller('/questions/:slug')
-
 export class FindQuestionBySlugController {
     constructor(
         readonly nestFindQuestionBySlugUseCase: NestFindQuestionBySlugUseCase
