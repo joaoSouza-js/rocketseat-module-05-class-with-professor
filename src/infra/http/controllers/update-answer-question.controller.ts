@@ -4,12 +4,12 @@ import { Body, Controller, HttpCode, Param, Put } from '@nestjs/common';
 import { IsString } from 'class-validator';
 import { NestUpdateAnswerQuestionUseCase } from '../use-cases/nest-update-answer-question-use-case';
 
-class AnswerQuestionControllerBody {
+class UpdateAnswerQuestionControllerBody {
     @IsString()
     content!: string;
 }
 
-class AnswerQuestionControllerParams {
+class UpdateAnswerQuestionControllerParams {
     @IsString()
     answerId!: string;
 }
@@ -21,8 +21,8 @@ export class UpdateAnswerQuestionController {
     @Put()
     @HttpCode(204)
     async handler(
-        @Param() params: AnswerQuestionControllerParams,
-        @Body() body: AnswerQuestionControllerBody,
+        @Param() params: UpdateAnswerQuestionControllerParams,
+        @Body() body: UpdateAnswerQuestionControllerBody,
         @CurrentUser() user: UserJwtPayload,
     ) {
 
