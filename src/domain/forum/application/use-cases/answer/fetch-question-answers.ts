@@ -6,28 +6,28 @@ interface Repositories {
     answerRepository: AnswerRepository;
 }
 
-interface FindQuestionAnswersUseCaseDeps {
+interface FetchQuestionAnswersUseCaseDeps {
     repositories: Repositories;
 }
 
-interface FindQuestionAnswersUseCaseRequest {
+interface FetchQuestionAnswersUseCaseRequest {
     questionId: string;
 }
 
-interface FindQuestionAnswersUseCaseResponse {
+interface FetchQuestionAnswersUseCaseResponse {
     answers: Answer[];
 }
 
-export class FindQuestionAnswersUseCase {
+export class FetchQuestionAnswersUseCase {
     answerRepository: AnswerRepository;
 
-    constructor(deps: FindQuestionAnswersUseCaseDeps) {
+    constructor(deps: FetchQuestionAnswersUseCaseDeps) {
         this.answerRepository = deps.repositories.answerRepository;
     }
 
     async execute(
-        input: FindQuestionAnswersUseCaseRequest,
-    ): Promise<FindQuestionAnswersUseCaseResponse> {
+        input: FetchQuestionAnswersUseCaseRequest,
+    ): Promise<FetchQuestionAnswersUseCaseResponse> {
         const questionId = UniqueEntityId.fromString(input.questionId);
 
         const answers = await this.answerRepository.findByQuestionId(questionId);

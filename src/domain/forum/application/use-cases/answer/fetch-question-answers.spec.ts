@@ -5,17 +5,17 @@ import { QuestionRepositoryInMemory } from "test/in-memory-repositories/question
 import { beforeEach, describe, expect, it } from "vitest";
 import type { AnswerRepository } from "../../repositories/answer-repository";
 import type { QuestionRepository } from "../../repositories/question-repository";
-import { FindQuestionAnswersUseCase } from "./find-question-answers";
+import { FetchQuestionAnswersUseCase } from "./fetch-question-answers";
 
 describe("find question answers use case", () => {
-    let sut: FindQuestionAnswersUseCase;
+    let sut: FetchQuestionAnswersUseCase;
     let answerRepository: AnswerRepository;
     let questionRepository: QuestionRepository;
 
     beforeEach(() => {
         answerRepository = new AnswerRepositoryInMemory();
         questionRepository = new QuestionRepositoryInMemory();
-        sut = new FindQuestionAnswersUseCase({
+        sut = new FetchQuestionAnswersUseCase({
             repositories: {
                 answerRepository: answerRepository,
             },
