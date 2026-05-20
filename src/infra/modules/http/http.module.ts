@@ -1,4 +1,5 @@
 import { JwtAuthGuard } from '@/guards/jwt-auth.guard';
+import { AnswerQuestionController } from '@/infra/http/controllers/answer-question.controller';
 import { CreateQuestionController } from '@/infra/http/controllers/create-question.controller';
 import { DeleteQuestionController } from '@/infra/http/controllers/delete-question.controller';
 import { FetchQuestionController } from '@/infra/http/controllers/fetch-question.controller';
@@ -16,7 +17,8 @@ import { UseCasesModule } from '../use-cases/use-case.module';
         FetchQuestionController,
         FindQuestionBySlugController,
         UpdateQuestionController,
-        DeleteQuestionController
+        DeleteQuestionController,
+        AnswerQuestionController,
     ],
     imports: [
         UseCasesModule,

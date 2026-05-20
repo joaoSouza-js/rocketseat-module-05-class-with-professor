@@ -37,7 +37,7 @@ export class AnswerQuestionUseCase {
         });
 
         const attachments: AnswerAttachment[] = request.attachmentsIds.map((attachmentId) => {
-            return AnswerAttachment.create({ answerId: answer.id });
+            return AnswerAttachment.create({ answerId: answer.id, title: answer.content, url: answer.content });
         });
 
         answer.attachments = new AnswerAttachmentList(attachments);
