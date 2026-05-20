@@ -4,6 +4,7 @@ import { CreateQuestionController } from '@/infra/http/controllers/create-questi
 import { DeleteQuestionController } from '@/infra/http/controllers/delete-question.controller';
 import { FetchQuestionController } from '@/infra/http/controllers/fetch-question.controller';
 import { FindQuestionBySlugController } from '@/infra/http/controllers/find-question-by-slug';
+import { UpdateAnswerQuestionController } from '@/infra/http/controllers/update-answer-question.controller';
 import { UpdateQuestionController } from '@/infra/http/controllers/update-question.controller';
 import { HasherService } from '@/infra/services/hasher/hasher.service';
 import { Module } from '@nestjs/common';
@@ -19,6 +20,7 @@ import { UseCasesModule } from '../use-cases/use-case.module';
         UpdateQuestionController,
         DeleteQuestionController,
         AnswerQuestionController,
+        UpdateAnswerQuestionController
     ],
     imports: [
         UseCasesModule,

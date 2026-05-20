@@ -5,6 +5,7 @@ import { NestCreateStudentUseCase } from "@/infra/http/use-cases/nest-create-stu
 import { NestDeleteQuestionUseCase } from "@/infra/http/use-cases/nest-delete-question-use-case";
 import { NestFetchLatestQuestionsUseCase } from "@/infra/http/use-cases/nest-fetch-latest-questions-use-case";
 import { NestFindQuestionBySlugUseCase } from "@/infra/http/use-cases/nest-find-question-by-slug";
+import { NestUpdateAnswerQuestionUseCase } from "@/infra/http/use-cases/nest-update-answer-question-use-case";
 import { NestUpdateQuestionUseCase } from "@/infra/http/use-cases/nest-update-question-use-case";
 import { DatabaseModule } from "@/infra/modules/database/database.module";
 import { HasherService } from "@/infra/services/hasher/hasher.service";
@@ -25,7 +26,9 @@ import { CryptographyModule } from "../crypto/crypto.module";
         NestAuthenticateStudentUseCase,
         NestUpdateQuestionUseCase,
         NestDeleteQuestionUseCase,
-        NestAnswerQuestionUseCase
+        NestAnswerQuestionUseCase,
+        NestUpdateAnswerQuestionUseCase,
+
     ],
     exports: [
         NestCreateQuestionUseCase,
@@ -36,6 +39,7 @@ import { CryptographyModule } from "../crypto/crypto.module";
         NestUpdateQuestionUseCase,
         NestDeleteQuestionUseCase,
         NestAnswerQuestionUseCase,
+        NestUpdateAnswerQuestionUseCase,
     ]
 })
 export class UseCasesModule { }
