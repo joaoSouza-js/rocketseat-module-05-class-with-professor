@@ -9,6 +9,8 @@ export function makeQuestionAttachment(override: Partial<QuestionAttachmentProps
 
     const questionAttachment = QuestionAttachment.create({
         id,
+        title: "title",
+        url: "url",
         questionId,
         ...override
     })

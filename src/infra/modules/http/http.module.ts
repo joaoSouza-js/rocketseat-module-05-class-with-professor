@@ -4,6 +4,7 @@ import { BestAnswerQuestionController } from '@/infra/http/controllers/best-answ
 import { CreateAnswerCommentController } from '@/infra/http/controllers/create-answer-comment-controller';
 import { CreateQuestionCommentController } from '@/infra/http/controllers/create-question-comment-controller';
 import { CreateQuestionController } from '@/infra/http/controllers/create-question.controller';
+import { DeleteAnswerCommentController } from '@/infra/http/controllers/delete-answer-comment-controller';
 import { DeleteAnswerQuestionController } from '@/infra/http/controllers/delete-answer-question.controller';
 import { DeleteQuestionCommentController } from '@/infra/http/controllers/delete-question-comment-controller';
 import { DeleteQuestionController } from '@/infra/http/controllers/delete-question.controller';
@@ -33,6 +34,7 @@ import { UseCasesModule } from '../use-cases/use-case.module';
         CreateQuestionCommentController,
         DeleteQuestionCommentController,
         CreateAnswerCommentController,
+        DeleteAnswerCommentController
     ],
     imports: [
         UseCasesModule,

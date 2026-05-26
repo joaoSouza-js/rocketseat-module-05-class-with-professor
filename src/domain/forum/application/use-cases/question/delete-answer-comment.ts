@@ -43,7 +43,6 @@ export class DeleteAnswerCommentsUseCase {
             input.answerCommentId,
         );
         ensureOwnership(answerComment.authorId, authorId, "Answer Comment");
-
         await this.answerCommentRepository.delete(answerComment);
 
         return { comment: answerComment };

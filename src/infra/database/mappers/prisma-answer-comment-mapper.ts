@@ -4,13 +4,14 @@ import { CommentModel } from "@/generated/prisma/models";
 
 export class PrismaAnswerCommentMapper {
     static toDomain(commentAnswerModel: CommentModel): AnswerComment {
+        const answerCommentId = UniqueEntityId.fromString(commentAnswerModel.id)
         const answerComment = AnswerComment.rehydrate({
             authorId: UniqueEntityId.fromString(commentAnswerModel.authorId),
             content: commentAnswerModel.content,
             createdAt: commentAnswerModel.createdAt,
             answerId: UniqueEntityId.fromString(commentAnswerModel.answerId!),
 
-        })
+        }, answerCommentId)
 
         return answerComment
     }

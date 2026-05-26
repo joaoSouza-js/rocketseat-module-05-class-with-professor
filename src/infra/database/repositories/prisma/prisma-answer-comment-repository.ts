@@ -2,43 +2,64 @@ import type { UniqueEntityId } from "@/core/entities/unique-entity-id";
 import type { PaginationParams } from "@/core/repositories/pagination-params";
 import type { AnswerCommentRepository } from "@/domain/forum/application/repositories/answer-comment-repository";
 import type { AnswerComment } from "@/domain/forum/enterprise/entities/answer-comment";
+import { PrismaService } from "@/infra/services/prisma/prisma.service";
 import { Injectable } from "@nestjs/common";
+import { PrismaAnswerCommentMapper } from "../../mappers/prisma-answer-comment-mapper";
 
 @Injectable()
 export class PrismaAnswerCommentRepository
     implements AnswerCommentRepository {
-    findById(answerCommentId: UniqueEntityId): Promise<AnswerComment | null> {
-        const answerComment = this.answerComments.find((answerComment) => {
-            return answerComment.id.equals(answerCommentId);
-        });
-        return Promise.resolve(answerComment || null);
+
+
+    constructor(readonly prismaService: PrismaService) { }
+
+    async findById(answerCommentId: UniqueEntityId): Promise<AnswerComment | null> {
+        const answerCommentFounded = await this.prismaService.comment.findUnique({
+            where: {
+                id: answerCommentId.toString()
+            }
+        })
+
+        if (answerCommentFounded === null) {
+            return null
+        }
+
+        const answerComment = PrismaAnswerCommentMapper.toDomain(answerCommentFounded)
+        return answerComment
     }
     answerComments: AnswerComment[] = [];
 
-    findManyByAnswerId(
+    async findManyByAnswerId(
         answerId: UniqueEntityId,
         params: PaginationParams,
     ): Promise<AnswerComment[]> {
         const { page = 1, limit = 10 } = params;
-        const answersComment = this.answerComments
-            .filter((answerComment) => {
-                return answerComment.answerId.equals(answerId);
-            })
-            .slice((page - 1) * page, page * limit);
-        return Promise.resolve(answersComment);
-    }
-    save(answerComment: AnswerComment): Promise<void> {
-        this.answerComments.push(answerComment);
-        return Promise.resolve();
-    }
-    delete(AnswerComment: AnswerComment): Promise<void> {
-        const answerCommentIndex = this.answerComments.findIndex(
-            (answerComment) => {
-                return answerComment.id.equals(AnswerComment.id);
-            },
-        );
 
-        this.answerComments.splice(answerCommentIndex, 1);
-        return Promise.resolve();
+        const answerComments = await this.prismaService.comment.findMany({
+            where: {
+                answerId: answerId.toString()
+            },
+            take: limit,
+            skip: (page - 1) * limit
+        })
+
+        const answerCommentsToDomain = answerComments.map(PrismaAnswerCommentMapper.toDomain)
+
+        return Promise.resolve(answerCommentsToDomain);
+    }
+    async save(answerComment: AnswerComment): Promise<void> {
+
+        const answerCommentToPersistence = PrismaAnswerCommentMapper.toPersistence(answerComment)
+        await this.prismaService.comment.create({
+            data: answerCommentToPersistence
+        })
+    }
+    async delete(answerComment: AnswerComment): Promise<void> {
+
+        await this.prismaService.comment.delete({
+            where: {
+                id: answerComment.id.toString()
+            }
+        })
     }
 }
