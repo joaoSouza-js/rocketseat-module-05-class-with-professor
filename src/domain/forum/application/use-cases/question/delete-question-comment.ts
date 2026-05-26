@@ -35,6 +35,7 @@ export class DeleteQuestionCommentsUseCase {
         const questionCommentId = UniqueEntityId.fromString(
             input.questionCommentId,
         );
+
         const questionCommentOrNull =
             await this.questionCommentRepository.findById(questionCommentId);
         const questionComment = ensureExists(

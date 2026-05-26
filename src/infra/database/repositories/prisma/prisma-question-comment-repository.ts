@@ -20,6 +20,7 @@ export class PrismaQuestionCommentRepository
             }
         })
 
+
         if (questionCommentFounded === null) {
             return null
         }
@@ -52,12 +53,14 @@ export class PrismaQuestionCommentRepository
         return Promise.resolve(questionCommentsToDomain);
     }
     async save(questionComment: QuestionComment): Promise<void> {
+
         const questionCommentToPersistence = PrismaQuestionCommentMapper.toPersistence(questionComment)
         await this.prismaService.comment.create({
             data: questionCommentToPersistence
         })
     }
     async delete(questionComment: QuestionComment): Promise<void> {
+
         await this.prismaService.comment.delete({
             where: {
                 id: questionComment.id.toString()
