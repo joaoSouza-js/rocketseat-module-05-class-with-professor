@@ -1,6 +1,7 @@
 import { JwtAuthGuard } from '@/guards/jwt-auth.guard';
 import { AnswerQuestionController } from '@/infra/http/controllers/answer-question.controller';
 import { BestAnswerQuestionController } from '@/infra/http/controllers/best-answer-question.controller';
+import { CreateAnswerCommentController } from '@/infra/http/controllers/create-answer-comment-controller';
 import { CreateQuestionCommentController } from '@/infra/http/controllers/create-question-comment-controller';
 import { CreateQuestionController } from '@/infra/http/controllers/create-question.controller';
 import { DeleteAnswerQuestionController } from '@/infra/http/controllers/delete-answer-question.controller';
@@ -31,6 +32,7 @@ import { UseCasesModule } from '../use-cases/use-case.module';
         BestAnswerQuestionController,
         CreateQuestionCommentController,
         DeleteQuestionCommentController,
+        CreateAnswerCommentController,
     ],
     imports: [
         UseCasesModule,
