@@ -8,7 +8,9 @@ import { DeleteAnswerCommentController } from '@/infra/http/controllers/delete-a
 import { DeleteAnswerQuestionController } from '@/infra/http/controllers/delete-answer-question.controller';
 import { DeleteQuestionCommentController } from '@/infra/http/controllers/delete-question-comment-controller';
 import { DeleteQuestionController } from '@/infra/http/controllers/delete-question.controller';
+import { FetchAnswerCommentsController } from '@/infra/http/controllers/fetch-answer-comments.controller';
 import { FetchQuestionAnswersController } from '@/infra/http/controllers/fetch-question-answers.controller';
+import { FetchQuestionCommentsController } from '@/infra/http/controllers/fetch-question-comments.controller';
 import { FetchQuestionController } from '@/infra/http/controllers/fetch-question.controller';
 import { FindQuestionBySlugController } from '@/infra/http/controllers/find-question-by-slug';
 import { UpdateAnswerQuestionController, } from '@/infra/http/controllers/update-answer-question.controller';
@@ -34,7 +36,9 @@ import { UseCasesModule } from '../use-cases/use-case.module';
         CreateQuestionCommentController,
         DeleteQuestionCommentController,
         CreateAnswerCommentController,
-        DeleteAnswerCommentController
+        DeleteAnswerCommentController,
+        FetchQuestionCommentsController,
+        FetchAnswerCommentsController,
     ],
     imports: [
         UseCasesModule,

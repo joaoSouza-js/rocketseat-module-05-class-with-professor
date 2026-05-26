@@ -5,21 +5,21 @@ import { AnswerRepositoryInMemory } from "test/in-memory-repositories/answer-rep
 import { beforeEach, describe, expect, it } from "vitest";
 import type { AnswerCommentRepository } from "../../repositories/answer-comment-repository";
 import type { AnswerRepository } from "../../repositories/answer-repository";
-import { FindAnswerCommentsUseCase } from "./find-answer-comments";
+import { FetchAnswerCommentsUseCase } from "./fetch-answer-comments";
 
-describe("find answer comments use case", () => {
-    let sut: FindAnswerCommentsUseCase;
+describe("fetch answer comments use case", () => {
+    let sut: FetchAnswerCommentsUseCase;
     let answerRepository: AnswerRepository;
     let answerCommentRepository: AnswerCommentRepository;
     beforeEach(() => {
         answerRepository = new AnswerRepositoryInMemory();
         answerCommentRepository = new AnswerCommentRepositoryInMemory();
-        sut = new FindAnswerCommentsUseCase({
+        sut = new FetchAnswerCommentsUseCase({
             repositories: { answerRepository, answerCommentRepository },
         });
     });
 
-    it("should find answer comments related to answer ", async () => {
+    it("should fetch answer comments related to answer ", async () => {
         const answer = makeAnswer();
         await answerRepository.save(answer);
 
@@ -53,7 +53,7 @@ describe("find answer comments use case", () => {
         expect(answerComments).toHaveLength(8);
     });
 
-    it("should find answer comments related to answer and persist ", async () => {
+    it("should fetch answer comments related to answer and persist ", async () => {
         const answer = makeAnswer();
         await answerRepository.save(answer);
 
@@ -81,7 +81,7 @@ describe("find answer comments use case", () => {
         expect(answerComments).toHaveLength(8);
     });
 
-    it("should not find a comment related to answer id", async () => {
+    it("should not fetch a comment related to answer id", async () => {
         const answer = makeAnswer();
         const secondAnswer = makeAnswer();
         await answerRepository.save(answer);

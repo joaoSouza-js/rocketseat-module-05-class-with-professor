@@ -10,30 +10,30 @@ interface Repositories {
     questionCommentRepository: QuestionCommentRepository;
 }
 
-interface FindQuestionCommentsUseCaseDeps {
+interface FetchQuestionCommentsUseCaseDeps {
     repositories: Repositories;
 }
 
-interface FindQuestionCommentsUseCaseRequest extends PaginationParams {
+interface FetchQuestionCommentsUseCaseRequest extends PaginationParams {
     questionId: string;
 }
 
-interface FindQuestionCommentsUseCaseResponse {
+interface FetchQuestionCommentsUseCaseResponse {
     comments: QuestionComment[];
 }
-export class FindQuestionCommentsUseCase {
+export class FetchQuestionCommentsUseCase {
     questionRepository: QuestionRepository;
     questionCommentRepository: QuestionCommentRepository;
 
-    constructor(deps: FindQuestionCommentsUseCaseDeps) {
+    constructor(deps: FetchQuestionCommentsUseCaseDeps) {
         this.questionRepository = deps.repositories.questionRepository;
         this.questionCommentRepository =
             deps.repositories.questionCommentRepository;
     }
 
     async execute(
-        input: FindQuestionCommentsUseCaseRequest,
-    ): Promise<FindQuestionCommentsUseCaseResponse> {
+        input: FetchQuestionCommentsUseCaseRequest,
+    ): Promise<FetchQuestionCommentsUseCaseResponse> {
         const questionId = UniqueEntityId.fromString(input.questionId);
         const questionOrNull = await this.questionRepository.findById(questionId);
         const question = ensureExists(questionOrNull, "Question", input.questionId);

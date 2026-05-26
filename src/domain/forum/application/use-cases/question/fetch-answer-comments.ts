@@ -10,29 +10,29 @@ interface Repositories {
     answerCommentRepository: AnswerCommentRepository;
 }
 
-interface FindAnswerCommentsUseCaseDeps {
+interface FetchAnswerCommentsUseCaseDeps {
     repositories: Repositories;
 }
 
-interface FindAnswerCommentsUseCaseRequest extends PaginationParams {
+interface FetchAnswerCommentsUseCaseRequest extends PaginationParams {
     answerId: string;
 }
 
-interface FindAnswerCommentsUseCaseResponse {
+interface FetchAnswerCommentsUseCaseResponse {
     comments: AnswerComment[];
 }
-export class FindAnswerCommentsUseCase {
+export class FetchAnswerCommentsUseCase {
     answerRepository: AnswerRepository;
     answerCommentRepository: AnswerCommentRepository;
 
-    constructor(deps: FindAnswerCommentsUseCaseDeps) {
+    constructor(deps: FetchAnswerCommentsUseCaseDeps) {
         this.answerRepository = deps.repositories.answerRepository;
         this.answerCommentRepository = deps.repositories.answerCommentRepository;
     }
 
     async execute(
-        input: FindAnswerCommentsUseCaseRequest,
-    ): Promise<FindAnswerCommentsUseCaseResponse> {
+        input: FetchAnswerCommentsUseCaseRequest,
+    ): Promise<FetchAnswerCommentsUseCaseResponse> {
         const answerId = UniqueEntityId.fromString(input.answerId);
         const answerOrNull = await this.answerRepository.findById(answerId);
         const answer = ensureExists(answerOrNull, "Answer", input.answerId);

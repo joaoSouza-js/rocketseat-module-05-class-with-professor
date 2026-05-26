@@ -5,21 +5,21 @@ import { QuestionRepositoryInMemory } from "test/in-memory-repositories/question
 import { beforeEach, describe, expect, it } from "vitest";
 import type { QuestionCommentRepository } from "../../repositories/question-comment-repository";
 import type { QuestionRepository } from "../../repositories/question-repository";
-import { FindQuestionCommentsUseCase } from "./find-question-comments";
+import { FetchQuestionCommentsUseCase } from "./fetch-question-comments";
 
-describe("find question comments use case", () => {
-    let sut: FindQuestionCommentsUseCase;
+describe("fetch question comments use case", () => {
+    let sut: FetchQuestionCommentsUseCase;
     let questionRepository: QuestionRepository;
     let questionCommentRepository: QuestionCommentRepository;
     beforeEach(() => {
         questionRepository = new QuestionRepositoryInMemory();
         questionCommentRepository = new QuestionCommentRepositoryInMemory();
-        sut = new FindQuestionCommentsUseCase({
+        sut = new FetchQuestionCommentsUseCase({
             repositories: { questionRepository, questionCommentRepository },
         });
     });
 
-    it("should find question comments related to question ", async () => {
+    it("should fetch question comments related to question ", async () => {
         const question = makeQuestion();
         await questionRepository.save(question);
 
@@ -52,7 +52,7 @@ describe("find question comments use case", () => {
     });
 
 
-    it("should find question comments related to question and persist ", async () => {
+    it("should fetch question comments related to question and persist ", async () => {
         const question = makeQuestion();
         await questionRepository.save(question);
 
@@ -79,7 +79,7 @@ describe("find question comments use case", () => {
         expect(questionComments).toHaveLength(8);
     });
 
-    it("should not find a comment related to question id", async () => {
+    it("should not fetch a comment related to question id", async () => {
         const question = makeQuestion();
         const secondQuestion = makeQuestion();
         await questionRepository.save(question);

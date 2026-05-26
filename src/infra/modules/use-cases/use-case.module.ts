@@ -9,7 +9,9 @@ import { NestDeleteAnswerQuestionUseCase } from "@/infra/http/use-cases/nest-del
 import { NestDeleteAnswerCommentUseCase } from "@/infra/http/use-cases/nest-delete-anwers-comment-use-case";
 import { NestDeleteQuestionCommentUseCase } from "@/infra/http/use-cases/nest-delete-question-comment-use-case";
 import { NestDeleteQuestionUseCase } from "@/infra/http/use-cases/nest-delete-question-use-case";
+import { NestFetchAnswerCommentsUseCase } from "@/infra/http/use-cases/nest-fetch-answer-coomment";
 import { NestFetchLatestQuestionsUseCase } from "@/infra/http/use-cases/nest-fetch-latest-questions-use-case";
+import { NestFetchQuestionCommentsUseCase } from "@/infra/http/use-cases/nest-fetch-question-comments";
 import { NestFetchQuestionsAnswersUseCase } from "@/infra/http/use-cases/nest-fetch-questions-answers-use-case";
 import { NestFindQuestionBySlugUseCase } from "@/infra/http/use-cases/nest-find-question-by-slug";
 import { NestUpdateAnswerQuestionUseCase } from "@/infra/http/use-cases/nest-update-answer-question-use-case";
@@ -36,14 +38,14 @@ import { CryptographyModule } from "../crypto/crypto.module";
         NestAnswerQuestionUseCase,
         NestUpdateAnswerQuestionUseCase,
         NestDeleteAnswerQuestionUseCase,
-        NestFetchQuestionsAnswersUseCase,
         NestBestAnswerQuestionUseCase,
         NestCreateQuestionCommentUseCase,
         NestDeleteQuestionCommentUseCase,
         NestCreateAnswerCommentUseCase,
-        NestDeleteAnswerCommentUseCase
-
-
+        NestDeleteAnswerCommentUseCase,
+        NestFetchQuestionsAnswersUseCase,
+        NestFetchAnswerCommentsUseCase,
+        NestFetchQuestionCommentsUseCase,
     ],
     exports: [
         NestCreateQuestionUseCase,
@@ -61,7 +63,10 @@ import { CryptographyModule } from "../crypto/crypto.module";
         NestCreateQuestionCommentUseCase,
         NestDeleteQuestionCommentUseCase,
         NestCreateAnswerCommentUseCase,
-        NestDeleteAnswerCommentUseCase
+        NestDeleteAnswerCommentUseCase,
+        NestFetchQuestionsAnswersUseCase,
+        NestFetchAnswerCommentsUseCase,
+        NestFetchQuestionCommentsUseCase
 
     ]
 })
