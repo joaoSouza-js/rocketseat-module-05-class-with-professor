@@ -2,8 +2,8 @@ import { CurrentUser } from '@/infra/modules/auth/current-use-decorator';
 import type { UserJwtPayload } from '@/infra/modules/auth/jwt.strategy';
 import { Body, Controller, HttpCode, Param, Post } from '@nestjs/common';
 import { IsString } from 'class-validator';
-import { CommentPresenter } from '../presenters/comment-presenter';
-import { NestCreateQuestionCommentUseCase } from '../use-cases/nest-create-question-commnet-use-case';
+import { CommentPresenter } from '../../presenters/comment-presenter';
+import { NestCreateQuestionCommentUseCase } from '../../use-cases/nest-create-question-commnet-use-case';
 
 class CreateQuestionCommentControllerBody {
     @IsString()

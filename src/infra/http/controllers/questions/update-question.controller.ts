@@ -2,7 +2,7 @@ import { CurrentUser } from '@/infra/modules/auth/current-use-decorator';
 import type { UserJwtPayload } from '@/infra/modules/auth/jwt.strategy';
 import { Body, Controller, HttpCode, Param, Put } from '@nestjs/common';
 import { IsString, MaxLength } from 'class-validator';
-import { NestUpdateQuestionUseCase } from '../use-cases/nest-update-question-use-case';
+import { NestUpdateQuestionUseCase } from '../../use-cases/nest-update-question-use-case';
 
 class UpdateQuestionBody {
     @IsString()

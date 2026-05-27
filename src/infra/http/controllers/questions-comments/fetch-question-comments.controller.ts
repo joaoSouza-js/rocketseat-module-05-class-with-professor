@@ -1,8 +1,8 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { Type } from 'class-transformer';
 import { IsNumber, IsOptional, IsString, Min } from 'class-validator';
-import { CommentPresenter } from '../presenters/comment-presenter';
-import { NestFetchQuestionCommentsUseCase } from '../use-cases/nest-fetch-question-comments';
+import { CommentPresenter } from '../../presenters/comment-presenter';
+import { NestFetchQuestionCommentsUseCase } from '../../use-cases/nest-fetch-question-comments';
 
 export class PaginationQueryParams {
     @IsOptional()

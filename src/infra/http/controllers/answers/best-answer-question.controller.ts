@@ -2,7 +2,7 @@ import { CurrentUser } from '@/infra/modules/auth/current-use-decorator';
 import type { UserJwtPayload } from '@/infra/modules/auth/jwt.strategy';
 import { Controller, Get, HttpCode, Param } from '@nestjs/common';
 import { IsString } from 'class-validator';
-import { NestBestAnswerQuestionUseCase } from '../use-cases/nest-best-answer-question-use-case';
+import { NestBestAnswerQuestionUseCase } from '../../use-cases/nest-best-answer-question-use-case';
 
 
 class BestAnswerQuestionControllerParams {
