@@ -2,7 +2,7 @@ import { CurrentUser } from '@/infra/modules/auth/current-use-decorator';
 import type { UserJwtPayload } from '@/infra/modules/auth/jwt.strategy';
 import { Controller, Delete, HttpCode, Param } from '@nestjs/common';
 import { IsString } from 'class-validator';
-import { NestDeleteAnswerCommentUseCase } from '../../use-cases/nest-delete-anwers-comment-use-case';
+import { NestDeleteAnswerCommentUseCase } from '../../use-cases/answers-comments/nest-delete-anwers-comment-use-case';
 
 
 class DeleteAnswerCommentControllerParams {

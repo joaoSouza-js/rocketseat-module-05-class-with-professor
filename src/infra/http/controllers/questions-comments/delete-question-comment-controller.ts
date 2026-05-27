@@ -3,7 +3,7 @@ import type { UserJwtPayload } from '@/infra/modules/auth/jwt.strategy';
 import { Controller, Delete, HttpCode, Param } from '@nestjs/common';
 import { IsString } from 'class-validator';
 import { CommentPresenter } from '../../presenters/comment-presenter';
-import { NestDeleteQuestionCommentUseCase } from '../../use-cases/nest-delete-question-comment-use-case';
+import { NestDeleteQuestionCommentUseCase } from '../../use-cases/questions-comments/nest-delete-question-comment-use-case';
 
 
 class DeleteQuestionCommentControllerParams {

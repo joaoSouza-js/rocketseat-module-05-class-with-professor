@@ -3,7 +3,7 @@ import { Controller, Get, Query } from '@nestjs/common';
 import { Type } from 'class-transformer';
 import { IsNumber, IsOptional, Min } from 'class-validator';
 import { QuestionPresenter, QuestionPresenterResponse } from '../../presenters/question-presenter';
-import { NestFetchLatestQuestionsUseCase } from '../../use-cases/nest-fetch-latest-questions-use-case';
+import { NestFetchLatestQuestionsUseCase } from '../../use-cases/questions/nest-fetch-latest-questions-use-case';
 
 export class PaginationQueryParams {
     @IsOptional()

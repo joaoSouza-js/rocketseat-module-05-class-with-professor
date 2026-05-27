@@ -2,7 +2,7 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 import { Type } from 'class-transformer';
 import { IsNumber, IsOptional, IsString, Min } from 'class-validator';
 import { AnswerCommentPresenter } from '../../presenters/anwers-comment-presenter';
-import { NestFetchAnswerCommentsUseCase } from '../../use-cases/nest-fetch-answer-coomment';
+import { NestFetchAnswerCommentsUseCase } from '../../use-cases/answers-comments/nest-fetch-answer-coomment';
 
 export class PaginationQueryParams {
     @IsOptional()

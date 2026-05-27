@@ -3,7 +3,7 @@ import type { UserJwtPayload } from '@/infra/modules/auth/jwt.strategy';
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { IsString, MaxLength } from 'class-validator';
 import { QuestionSlugPresenter, QuestionSlugPresenterResponse } from '../../presenters/question-slug-pressentes';
-import { NestCreateQuestionUseCase } from '../../use-cases/nest-create-question-use-case';
+import { NestCreateQuestionUseCase } from '../../use-cases/questions/nest-create-question-use-case';
 
 export class CreteQuestionBody {
     @IsString()

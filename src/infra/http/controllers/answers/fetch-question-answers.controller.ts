@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from "@nestjs/common";
 import { IsString } from "class-validator";
 import { AnswerPresenter } from "../../presenters/answer-presenter";
-import { NestFetchQuestionsAnswersUseCase } from "../../use-cases/nest-fetch-questions-answers-use-case";
+import { NestFetchQuestionsAnswersUseCase } from "../../use-cases/answers/nest-fetch-questions-answers-use-case";
 
 class FetchQuestionAnswersControllerParams {
     @IsString()

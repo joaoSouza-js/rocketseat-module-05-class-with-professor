@@ -3,7 +3,7 @@ import type { UserJwtPayload } from '@/infra/modules/auth/jwt.strategy';
 import { Body, Controller, HttpCode, Param, Post } from '@nestjs/common';
 import { IsString } from 'class-validator';
 import { CommentPresenter } from '../../presenters/comment-presenter';
-import { NestCreateQuestionCommentUseCase } from '../../use-cases/nest-create-question-commnet-use-case';
+import { NestCreateQuestionCommentUseCase } from '../../use-cases/questions-comments/nest-create-question-commnet-use-case';
 
 class CreateQuestionCommentControllerBody {
     @IsString()
