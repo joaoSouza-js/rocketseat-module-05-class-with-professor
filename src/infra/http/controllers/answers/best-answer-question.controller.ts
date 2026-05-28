@@ -1,6 +1,6 @@
 import { CurrentUser } from '@/infra/modules/auth/current-use-decorator';
 import type { UserJwtPayload } from '@/infra/modules/auth/jwt.strategy';
-import { Controller, Get, HttpCode, Param } from '@nestjs/common';
+import { Controller, HttpCode, Param, Patch } from '@nestjs/common';
 import { IsString } from 'class-validator';
 import { NestBestAnswerQuestionUseCase } from '../../use-cases/answers/nest-best-answer-question-use-case';
 
@@ -14,7 +14,7 @@ class BestAnswerQuestionControllerParams {
 export class BestAnswerQuestionController {
     constructor(readonly nestBestAnswerQuestionUseCase: NestBestAnswerQuestionUseCase) { }
 
-    @Get()
+    @Patch()
     @HttpCode(204)
     async handler(
         @Param() params: BestAnswerQuestionControllerParams,

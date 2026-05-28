@@ -37,7 +37,7 @@ describe('Best answer question (E2E)', () => {
         const answer = await answerFactory.makePrisma({ authorId: user.id, questionId: question.id })
         const agent = request(app.getHttpServer());
         const token = jwtService.sign({ sub: user.id.toString() })
-        const response = await agent.get(`/answers/${answer.id.toString()}/best`).set('Authorization', `Bearer ${token}`)
+        const response = await agent.patch(`/answers/${answer.id.toString()}/best`).set('Authorization', `Bearer ${token}`)
         expect(response.statusCode).toBe(204)
 
         const answerOnDatabase = await prismaService.question.findUnique({
