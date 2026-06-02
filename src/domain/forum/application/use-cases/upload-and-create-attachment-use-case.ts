@@ -1,7 +1,7 @@
 import { ensureTypeValidation } from "@/core/guards/ensure-type-validation";
 import { Attachment } from "../../enterprise/entities/attachment";
 import { AttachmentRepository } from "../repositories/attachement-repository";
-import { Uploader } from "../uploader";
+import { Uploader } from "../storage/uploader";
 
 interface Repositories {
     attachmentRepository: AttachmentRepository
@@ -41,7 +41,7 @@ export class UploadAndCreateAttachmentsUseCase {
 
         ensureTypeValidation(file.mimeType, ALLOWED_MIME_TYPES)
 
-        const url = await this.uploader.upload({
+        const fileReference = await this.uploader.upload({
             body: file.body,
             fileName: file.fileName,
             mimeType: file.mimeType
@@ -49,10 +49,16 @@ export class UploadAndCreateAttachmentsUseCase {
 
         const attachment = Attachment.create({
             title: file.fileName,
-            url: url
+            url: fileReference
         })
 
-        this.attachmentRepository.create(attachment)
+
+
+        await this.attachmentRepository.create(attachment)
+
+        return {
+            fileReference: fileReference
+        }
     }
 
 }

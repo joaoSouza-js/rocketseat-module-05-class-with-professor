@@ -6,6 +6,7 @@ import { NestBestAnswerQuestionUseCase } from "@/infra/http/use-cases/answers/ne
 import { NestDeleteAnswerQuestionUseCase } from "@/infra/http/use-cases/answers/nest-delete-answer-question-use-case";
 import { NestFetchQuestionsAnswersUseCase } from "@/infra/http/use-cases/answers/nest-fetch-questions-answers-use-case";
 import { NestUpdateAnswerQuestionUseCase } from "@/infra/http/use-cases/answers/nest-update-answer-question-use-case";
+import { NestAttachmentUploaderUseCase } from "@/infra/http/use-cases/nest-attachment-uploader-use-case";
 import { NestAuthenticateStudentUseCase } from "@/infra/http/use-cases/nest-authenticate-student-use-case";
 import { NestCreateStudentUseCase } from "@/infra/http/use-cases/nest-create-student-use-case";
 import { NestCreateQuestionCommentUseCase } from "@/infra/http/use-cases/questions-comments/nest-create-question-commnet-use-case";
@@ -20,11 +21,13 @@ import { DatabaseModule } from "@/infra/modules/database/database.module";
 import { HasherService } from "@/infra/services/hasher/hasher.service";
 import { Module } from "@nestjs/common";
 import { CryptographyModule } from "../crypto/crypto.module";
+import { R2StorageModule } from "../storage/r2-storage.module";
 
 @Module({
     imports: [
         DatabaseModule,
-        CryptographyModule
+        CryptographyModule,
+        R2StorageModule
     ],
     providers: [
         HasherService,
@@ -46,6 +49,7 @@ import { CryptographyModule } from "../crypto/crypto.module";
         NestFetchQuestionsAnswersUseCase,
         NestFetchAnswerCommentsUseCase,
         NestFetchQuestionCommentsUseCase,
+        NestAttachmentUploaderUseCase
     ],
     exports: [
         NestCreateQuestionUseCase,
@@ -66,7 +70,8 @@ import { CryptographyModule } from "../crypto/crypto.module";
         NestDeleteAnswerCommentUseCase,
         NestFetchQuestionsAnswersUseCase,
         NestFetchAnswerCommentsUseCase,
-        NestFetchQuestionCommentsUseCase
+        NestFetchQuestionCommentsUseCase,
+        NestAttachmentUploaderUseCase
 
     ]
 })

@@ -32,6 +32,17 @@ class EnvironmentVariables {
     @IsString()
     SCHEMA_ID!: string
 
+    @IsString()
+    CLOUDFLARE_ACCOUNT_ID!: string;
+
+    @IsString()
+    AWS_ACCESS_KEY_ID!: string;
+
+    @IsString()
+    AWS_ACCESS_KEY_SECRET!: string;
+
+    @IsString()
+    AWS_BUCKET_NAME!: string;
 
 
 }

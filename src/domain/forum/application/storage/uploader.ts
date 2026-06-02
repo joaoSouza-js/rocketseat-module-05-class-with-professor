@@ -1,4 +1,4 @@
-type UploaderParams = {
+export type UploaderParams = {
     body: Buffer
     fileName: string
     mimeType: string

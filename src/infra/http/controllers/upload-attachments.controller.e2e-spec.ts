@@ -5,6 +5,7 @@ import { Test } from "@nestjs/testing";
 import path from "path";
 import request from 'supertest';
 import { StudentFactory } from "test/factories/make-student";
+import { beforeAll, describe, expect, it } from "vitest";
 
 describe("Fetch question by slug (E2E)", () => {
     let app: INestApplication;

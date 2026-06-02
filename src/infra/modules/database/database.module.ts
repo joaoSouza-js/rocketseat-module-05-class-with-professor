@@ -1,3 +1,4 @@
+import { PrismaAttachmentRepository } from '@/infra/database/repositories/prisma/prisma-attachement-repository';
 import { Module } from '@nestjs/common';
 import { PrismaAnswerAttachmentRepository } from '../../database/repositories/prisma/prisma-answer-attachment-repository';
 import { PrismaAnswerCommentRepository } from '../../database/repositories/prisma/prisma-answer-comment-repository';
@@ -18,7 +19,8 @@ import { PrismaStudentRepository } from '../../database/repositories/prisma/pris
         PrismaStudentRepository,
         PrismaQuestionAttachmentRepository,
         PrismaQuestionCommentRepository,
-        PrismaQuestionRepository
+        PrismaQuestionRepository,
+        PrismaAttachmentRepository
     ],
     exports: [
         PrismaAnswerAttachmentRepository,
@@ -28,7 +30,8 @@ import { PrismaStudentRepository } from '../../database/repositories/prisma/pris
         PrismaStudentRepository,
         PrismaQuestionAttachmentRepository,
         PrismaQuestionCommentRepository,
-        PrismaQuestionRepository
+        PrismaQuestionRepository,
+        PrismaAttachmentRepository,
     ]
 })
 export class DatabaseModule { }

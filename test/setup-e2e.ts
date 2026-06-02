@@ -1,10 +1,18 @@
 import { PrismaPg } from "@prisma/adapter-pg"
 import { randomUUID } from "crypto"
-import "dotenv/config"
+import { config } from "dotenv"
 import { execSync } from "node:child_process"
 import { PrismaClient } from "../src/generated/prisma/client"
 
+config({
+    path: ".env",
+    override: true
+})
 
+config({
+    path: ".env.test",
+    override: true
+})
 
 function generateUniqueDataBaseUrl(schemaId: string) {
 

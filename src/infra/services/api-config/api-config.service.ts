@@ -27,4 +27,20 @@ export class ApiConfigService {
     return process.env.SCHEMA_ID!
   }
 
+  get cloudflareAccountId(): string {
+    return this.configService.get<string>('CLOUDFLARE_ACCOUNT_ID')!;
+  }
+
+  get awsAccessKeyId(): string {
+    return this.configService.get<string>('AWS_ACCESS_KEY_ID')!;
+  }
+
+  get awsAccessKeySecret(): string {
+    return this.configService.get<string>('AWS_ACCESS_KEY_SECRET')!;
+  }
+
+  get awsBucketName(): string {
+    return this.configService.get<string>('AWS_BUCKET_NAME')!;
+  }
+
 }
