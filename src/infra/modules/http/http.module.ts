@@ -1,4 +1,5 @@
 import { JwtAuthGuard } from '@/guards/jwt-auth.guard';
+import { AttachmentsUploadController } from '@/infra/http/controllers/upload-attachments.controller';
 import { HasherService } from '@/infra/services/hasher/hasher.service';
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
@@ -15,8 +16,10 @@ import { AnswersModule } from './questions.module';
         QuestionsModule,
         QuestionsCommentsModule,
         AnswersCommentsModule,
-        AuthModule
+        AuthModule,
+
     ],
+    controllers: [AttachmentsUploadController],
     providers: [HasherService, {
         provide: APP_GUARD,
         useClass: JwtAuthGuard,

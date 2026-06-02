@@ -26,6 +26,6 @@
       "@/*": ["./src/*"]
     },
     "noFallthroughCasesInSwitch": false,
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals", "multer"]
   }
 }
