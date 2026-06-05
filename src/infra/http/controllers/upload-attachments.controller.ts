@@ -28,7 +28,7 @@ export class AttachmentsUploadController {
         })
 
         return {
-            fileReference: response.fileReference
+            attachmentId: response.attachmentId.toString()
         }
     }
 }

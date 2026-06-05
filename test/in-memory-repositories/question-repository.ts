@@ -40,13 +40,19 @@ export class QuestionRepositoryInMemory implements QuestionRepository {
         return Promise.resolve(response);
     }
 
-    update(question: Question): Promise<void> {
+    async update(question: Question): Promise<void> {
         this.questions = this.questions.map((currentQuestion) => {
             if (currentQuestion.id.equals(question.id)) {
                 return question;
             }
             return question;
         });
+
+        Promise.all([
+            this.questionAttachmentsRepository?.deleteMany(question.attachments.getRemovedItems()),
+            this.questionAttachmentsRepository?.createMany(question.attachments.getNewItems())
+
+        ])
 
         return Promise.resolve();
     }
@@ -71,8 +77,9 @@ export class QuestionRepositoryInMemory implements QuestionRepository {
 
     private questions: Question[] = [];
 
-    save(question: Question): Promise<Question> {
+    async save(question: Question): Promise<Question> {
         this.questions.push(question);
+        await this.questionAttachmentsRepository?.createMany(question.attachments.getItems())
         return Promise.resolve(question);
     }
 

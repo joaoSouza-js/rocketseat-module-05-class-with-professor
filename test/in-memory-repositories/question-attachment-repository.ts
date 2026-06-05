@@ -3,8 +3,23 @@ import { QuestionAttachmentRepository } from "@/domain/forum/application/reposit
 import { QuestionAttachment } from "@/domain/forum/enterprise/entities/question-attachment";
 
 export class QuestionAttachmentRepositoryInMemory implements QuestionAttachmentRepository {
-    public questionAttachments: QuestionAttachment[] = [];
 
+    async createMany(attachments: QuestionAttachment[]): Promise<void> {
+        this.questionAttachments.push(...attachments);
+        return Promise.resolve();
+    }
+    deleteMany(attachments: QuestionAttachment[]): Promise<void> {
+        this.questionAttachments = this.questionAttachments.filter(
+            (questionAttachment) => {
+                const isOnList = attachments.some((attachment) =>
+                    attachment.id.equals(questionAttachment.id)
+                );
+                return isOnList === false
+            }
+        );
+        return Promise.resolve();
+    }
+    public questionAttachments: QuestionAttachment[] = [];
     findManyByQuestionId(
         questionId: UniqueEntityId,
     ): Promise<QuestionAttachment[]> {

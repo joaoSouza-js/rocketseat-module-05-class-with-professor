@@ -86,10 +86,6 @@ describe("update question use case", () => {
         });
 
 
-        questionAttachmentRepository.questionAttachments = question.attachments.getItems()
-
-
-
         await questionRepository.save(question);
 
         const response = await sut.execute({

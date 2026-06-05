@@ -5,5 +5,7 @@ import { QuestionAttachment } from "../../enterprise/entities/question-attachmen
 
 export interface QuestionAttachmentRepository {
     findManyByQuestionId(questionId: UniqueEntityId): Promise<QuestionAttachment[]>;
-    deleteManyByQuestionId(questionId: UniqueEntityId): Promise<null>
+    deleteManyByQuestionId(questionId: UniqueEntityId): Promise<null>,
+    createMany(attachments: QuestionAttachment[]): Promise<void>,
+    deleteMany(attachments: QuestionAttachment[]): Promise<void>
 }

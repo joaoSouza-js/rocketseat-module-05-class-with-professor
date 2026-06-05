@@ -57,7 +57,7 @@ export class UploadAndCreateAttachmentsUseCase {
         await this.attachmentRepository.create(attachment)
 
         return {
-            fileReference: fileReference
+            attachmentId: attachment.id
         }
     }
 
