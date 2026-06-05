@@ -1,4 +1,5 @@
 import { Entity } from "@/core/entities/entity";
+import { UniqueEntityId } from "@/core/entities/unique-entity-id";
 
 export interface AttachmentProps {
     createdAt: Date;
@@ -29,5 +30,9 @@ export class Attachment<Props extends AttachmentProps> extends Entity<Props> {
             title: props.title,
             url: props.url,
         });
+    }
+
+    static rehydrate(props: AttachmentProps, id?: UniqueEntityId): Attachment<AttachmentProps> {
+        return new Attachment<AttachmentProps>(props, id);
     }
 }

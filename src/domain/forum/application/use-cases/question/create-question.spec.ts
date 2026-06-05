@@ -1,3 +1,4 @@
+import { AttachmentRepositoryInMemory } from "test/in-memory-repositories/attachment-repostiory";
 import { QuestionAttachmentRepositoryInMemory } from "test/in-memory-repositories/question-attachment-repository";
 import { QuestionRepositoryInMemory } from "test/in-memory-repositories/question-repository";
 import { beforeEach, describe, expect, it } from "vitest";
@@ -8,9 +9,11 @@ describe("create question use case", () => {
     let sut: CreateQuestionUseCase;
     let questionRepository: QuestionRepository;
     let questionAttachmentRepository: QuestionAttachmentRepositoryInMemory
+    let attachmentRepository: AttachmentRepositoryInMemory
 
     beforeEach(() => {
         questionAttachmentRepository = new QuestionAttachmentRepositoryInMemory()
+        attachmentRepository = new AttachmentRepositoryInMemory()
         questionRepository = new QuestionRepositoryInMemory({
             repositories: {
                 questionAttachmentsRepository: questionAttachmentRepository
@@ -19,6 +22,7 @@ describe("create question use case", () => {
         sut = new CreateQuestionUseCase({
             repositories: {
                 questionRepository: questionRepository,
+                attachmentRepository: attachmentRepository
             },
         });
     });

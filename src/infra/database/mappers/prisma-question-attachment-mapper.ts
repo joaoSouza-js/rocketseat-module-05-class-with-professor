@@ -2,6 +2,10 @@ import { UniqueEntityId } from "@/core/entities/unique-entity-id";
 import { QuestionAttachment } from "@/domain/forum/enterprise/entities/question-attachment";
 import { AttachmentModel } from "@/generated/prisma/models";
 
+type QuestionAttachmentModel = Omit<AttachmentModel, "questionId"> & {
+    questionId: string
+}
+
 export class PrismaQuestionAttachmentMapper {
     static toDomain(attachmentModel: AttachmentModel): QuestionAttachment {
         const attachmentId = UniqueEntityId.fromString(attachmentModel.id);
@@ -16,8 +20,8 @@ export class PrismaQuestionAttachmentMapper {
         return attachment
     }
 
-    static toPersistence(attachment: QuestionAttachment): AttachmentModel {
-        const attachmentModel: AttachmentModel = {
+    static toPersistence(attachment: QuestionAttachment): QuestionAttachmentModel {
+        const attachmentModel: QuestionAttachmentModel = {
             id: attachment.id.toString(),
             questionId: attachment.questionId.toString(),
             createdAt: attachment.createdAt,

@@ -46,6 +46,8 @@ describe("Fetch question by slug (E2E)", () => {
             .set('Authorization', `Bearer ${token}`)
 
         expect(response.statusCode).toBe(201);
+        expect(response.body.attachmentId).toBeDefined()
+        expect(response.body.attachmentId).toEqual(expect.any(String))
 
 
 

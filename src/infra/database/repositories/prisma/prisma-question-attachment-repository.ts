@@ -9,6 +9,36 @@ export class PrismaQuestionAttachmentRepository implements QuestionAttachmentRep
     public questionAttachments: QuestionAttachment[] = [];
 
     constructor(readonly prismaService: PrismaService) { }
+    async createMany(attachments: QuestionAttachment[]): Promise<void> {
+        const attachmentsToPrisma = attachments.map(PrismaQuestionAttachmentMapper.toPersistence)
+        const attachmentsId = attachmentsToPrisma.map(attachment => attachment.id)
+
+        await this.prismaService.attachment.updateMany({
+            where: {
+                id: {
+                    in: attachmentsId
+                }
+            },
+            data: {
+                questionId: attachments[0].questionId.toString()
+            }
+        })
+
+
+    }
+    deleteMany(attachments: QuestionAttachment[]): Promise<void> {
+        const attachmentsToPrisma = attachments.map(PrismaQuestionAttachmentMapper.toPersistence)
+        const attachmentsId = attachmentsToPrisma.map(attachment => attachment.id)
+
+        this.prismaService.attachment.deleteMany({
+            where: {
+                id: {
+                    in: attachmentsId
+                }
+            }
+        })
+        return Promise.resolve()
+    }
 
     async findManyByQuestionId(
         questionId: UniqueEntityId,
@@ -23,6 +53,7 @@ export class PrismaQuestionAttachmentRepository implements QuestionAttachmentRep
         const questionAttachmentsToDomain = questionAttachments.map(PrismaQuestionAttachmentMapper.toDomain)
         return questionAttachmentsToDomain
     }
+
 
     async deleteManyByQuestionId(questionId: UniqueEntityId): Promise<null> {
         await this.prismaService.attachment.deleteMany({

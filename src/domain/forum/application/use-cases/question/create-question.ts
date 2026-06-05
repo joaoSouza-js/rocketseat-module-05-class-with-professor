@@ -3,9 +3,11 @@ import type { QuestionRepository } from "@/domain/forum/application/repositories
 import { Question } from "@/domain/forum/enterprise/entities/question";
 import { QuestionAttachment } from "@/domain/forum/enterprise/entities/question-attachment";
 import { QuestionAttachmentList } from "@/domain/forum/enterprise/entities/question-attachment-list";
+import { AttachmentRepository } from "../../repositories/attachement-repository";
 
 interface Repositories {
     questionRepository: QuestionRepository;
+    attachmentRepository: AttachmentRepository
 }
 
 interface CreateQuestionUseCaseDeps {
@@ -23,9 +25,11 @@ interface CreateQuestionUseCaseResponse {
 }
 export class CreateQuestionUseCase {
     questionRepository: QuestionRepository;
+    attachmentRepository: AttachmentRepository
 
     constructor(deps: CreateQuestionUseCaseDeps) {
         this.questionRepository = deps.repositories.questionRepository;
+        this.attachmentRepository = deps.repositories.attachmentRepository
     }
 
     async execute(
@@ -38,15 +42,18 @@ export class CreateQuestionUseCase {
             authorId: UniqueEntityId.fromString(input.authorId),
         });
 
-        const questionAttachments = input.attachmentsIds.map(attachmentId => {
-            const attachment = QuestionAttachment.create({
+        const attachmentsId = input.attachmentsIds.map(UniqueEntityId.fromString)
+        const attachments = await this.attachmentRepository.findMany(attachmentsId)
+
+        const questionAttachments = attachments.map(attachment => {
+            const questionAttachment = QuestionAttachment.create({
                 questionId: newQuestion.id,
-                id: UniqueEntityId.fromString(attachmentId), //attachmentId
-                title: newQuestion.title,
-                url: newQuestion.content
+                id: attachment.id,
+                title: attachment.title,
+                url: attachment.url
             })
 
-            return attachment
+            return questionAttachment
         })
 
         const questionAttachmentList = new QuestionAttachmentList(questionAttachments)

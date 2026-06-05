@@ -1,7 +1,8 @@
 import { CurrentUser } from '@/infra/modules/auth/current-use-decorator';
 import type { UserJwtPayload } from '@/infra/modules/auth/jwt.strategy';
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
-import { IsString, MaxLength } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsArray, IsOptional, IsString, MaxLength } from 'class-validator';
 import { QuestionSlugPresenter, QuestionSlugPresenterResponse } from '../../presenters/question-slug-pressentes';
 import { NestCreateQuestionUseCase } from '../../use-cases/questions/nest-create-question-use-case';
 
@@ -12,6 +13,13 @@ export class CreteQuestionBody {
     @IsString()
     @MaxLength(2400)
     content!: string
+
+    @IsOptional()
+    @IsArray()
+    @IsString({ each: true })
+    @Transform(({ value }) => value ?? [])
+    attachmentsIds!: string[];
+
 
 }
 
@@ -33,7 +41,7 @@ export class CreateQuestionController {
             title: body.title,
             content: body.content,
             authorId: user.sub,
-            attachmentsIds: []
+            attachmentsIds: body.attachmentsIds ?? []
         })
 
         const questionPresenter = QuestionSlugPresenter.toHTTP(response.question)

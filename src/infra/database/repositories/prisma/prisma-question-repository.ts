@@ -47,12 +47,17 @@ export class PrismaQuestionRepository implements QuestionRepository {
 
     async update(question: Question): Promise<void> {
         const questionMapped = PrismaQuestionMapper.toUpdatePersistence(question)
-        await this.prismaService.question.update({
-            where: {
-                id: question.id.toString()
-            },
-            data: questionMapped,
-        })
+        await Promise.all([
+            await this.prismaService.question.update({
+                where: {
+                    id: question.id.toString()
+                },
+                data: questionMapped,
+            }),
+            this.questionAttachmentsRepository?.createMany(question.attachments.getNewItems()),
+            this.questionAttachmentsRepository?.deleteMany(question.attachments.getRemovedItems())
+
+        ])
     }
     async findById(questionId: UniqueEntityId): Promise<Question | null> {
         const questionFounded = await this.prismaService.question.findUnique({
@@ -86,6 +91,8 @@ export class PrismaQuestionRepository implements QuestionRepository {
         await this.prismaService.question.create({
             data: questionToPersist
         })
+
+        await this.questionAttachmentsRepository?.createMany(question.attachments.getItems())
 
         return question
     }
