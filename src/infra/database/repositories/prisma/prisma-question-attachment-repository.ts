@@ -12,7 +12,6 @@ export class PrismaQuestionAttachmentRepository implements QuestionAttachmentRep
     async createMany(attachments: QuestionAttachment[]): Promise<void> {
         const attachmentsToPrisma = attachments.map(PrismaQuestionAttachmentMapper.toPersistence)
         const attachmentsId = attachmentsToPrisma.map(attachment => attachment.id)
-
         await this.prismaService.attachment.updateMany({
             where: {
                 id: {
@@ -26,18 +25,18 @@ export class PrismaQuestionAttachmentRepository implements QuestionAttachmentRep
 
 
     }
-    deleteMany(attachments: QuestionAttachment[]): Promise<void> {
+    async deleteMany(attachments: QuestionAttachment[]): Promise<void> {
         const attachmentsToPrisma = attachments.map(PrismaQuestionAttachmentMapper.toPersistence)
         const attachmentsId = attachmentsToPrisma.map(attachment => attachment.id)
 
-        this.prismaService.attachment.deleteMany({
+        await this.prismaService.attachment.deleteMany({
             where: {
                 id: {
                     in: attachmentsId
                 }
             }
         })
-        return Promise.resolve()
+
     }
 
     async findManyByQuestionId(

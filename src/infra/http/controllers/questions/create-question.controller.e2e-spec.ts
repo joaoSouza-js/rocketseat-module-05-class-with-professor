@@ -38,8 +38,6 @@ describe('Create question (E2E)', () => {
         const attachments = await Promise.all(attachmentsPromise)
         const attachmentsId = attachments.map(attachment => attachment.id.toString())
 
-
-
         const question = {
             title: 'question title',
             content: 'question content',
@@ -72,8 +70,6 @@ describe('Create question (E2E)', () => {
                 questionId: questionCreated?.id
             }
         })
-
-        console.log(attachmentsOnDatabase)
 
         expect(attachmentsOnDatabase).toHaveLength(3)
     });

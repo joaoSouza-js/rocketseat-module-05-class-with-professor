@@ -1,7 +1,8 @@
 import { CurrentUser } from '@/infra/modules/auth/current-use-decorator';
 import type { UserJwtPayload } from '@/infra/modules/auth/jwt.strategy';
 import { Body, Controller, HttpCode, Param, Put } from '@nestjs/common';
-import { IsString, MaxLength } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsArray, IsOptional, IsString, MaxLength } from 'class-validator';
 import { NestUpdateQuestionUseCase } from '../../use-cases/questions/nest-update-question-use-case';
 
 class UpdateQuestionBody {
@@ -11,6 +12,12 @@ class UpdateQuestionBody {
     @IsString()
     @MaxLength(2400)
     content!: string;
+
+    @IsOptional()
+    @IsArray()
+    @IsString({ each: true })
+    @Transform(({ value }) => value ?? [])
+    attachmentsIds!: string[];
 }
 class UpdateQuestionParams {
     @IsString()
@@ -34,9 +41,11 @@ export class UpdateQuestionController {
 
             title: body.title,
             content: body.content,
-            attachmentsIds: [],
+            attachmentsIds: body.attachmentsIds ?? [],
             authorId: user.sub,
         });
 
     }
 }
+
+

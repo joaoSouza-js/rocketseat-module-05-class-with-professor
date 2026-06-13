@@ -50,6 +50,8 @@ export class UpdateQuestionUseCase {
             questionId.toString(),
         );
 
+
+
         ensureOwnership(question.authorId, authorId, "Question");
 
         const currentQuestionAttachments = await this.questionAttachmentRepository.findManyByQuestionId(question.id)
@@ -59,19 +61,21 @@ export class UpdateQuestionUseCase {
             const attachment = QuestionAttachment.rehydrate({
                 questionId: question.id,
                 createdAt: new Date(),
-                title: question.title,
-                url: question.content
+                title: "",
+                url: ""
 
             }, UniqueEntityId.fromString(attachmentId))
 
             return attachment
         })
 
-        questionAttachmentList.update(questionAttachments)
 
+
+        questionAttachmentList.update(questionAttachments)
         question.title = input.title
         question.content = input.content
         question.attachments = questionAttachmentList
+
 
         await this.questionRepository.update(question);
         return {
